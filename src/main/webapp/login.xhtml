@@ -13,15 +13,15 @@
 			<h:form class="panel-body">
 				<div class="form-group">
 					<label for="email">Email</label>
-					<p:inputText id="email" placeholder="email"
+					<p:inputText id="email" value="#{loginBean.usuario.email}" placeholder="email"
 						styleClass="form-control" onfocus="true" />
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
-					<p:password id="password" placeholder="password"
+					<p:password id="password" value="#{loginBean.usuario.senha}" placeholder="password"
 						styleClass="form-control" />
 				</div>
-				<p:commandButton type="submit" styleClass="btn btn-primary"
+				<p:commandButton type="submit" action="#{loginBean.login}" styleClass="btn btn-primary"
 					value="Login" />
 			</h:form>
 		</div>
