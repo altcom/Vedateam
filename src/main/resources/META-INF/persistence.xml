@@ -6,8 +6,12 @@
 	<persistence-unit name="vedateam" transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:/vedateamDS</jta-data-source>
+		
+		<class>br.net.altcom.modelo.entity.Usuario</class>
+		
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 		</properties>
 	</persistence-unit>
+	
 </persistence>
