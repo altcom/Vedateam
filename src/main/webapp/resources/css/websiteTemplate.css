@@ -1,0 +1,186 @@
+@CHARSET "UTF-8";
+ol{
+	list-style-type: none;
+}
+body{
+	padding-top: 100px;
+	background-color: #ecf0f1;
+}
+.logo-header{
+	height: 100%;
+}
+
+.img-user{
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	box-sizing: border-box;
+	float: right;
+}
+
+.navbar{
+	background-color: #333;
+}
+
+.itens{
+	background-color: white;
+	list-style-type: none;
+	padding: 0;
+}
+
+.navbar-left, .navbar-right{
+	margin: 0;
+	padding: 0;
+}
+
+.navbar-left li{
+	list-style-type: none;
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#919191+0,919191+100&0+0,1+50,0+100 */
+	background: -moz-linear-gradient(left, rgba(145,145,145,0) 0%, rgba(145,145,145,1) 50%, rgba(145,145,145,0) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, rgba(145,145,145,0) 0%,rgba(145,145,145,1) 50%,rgba(145,145,145,0) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, rgba(145,145,145,0) 0%,rgba(145,145,145,1) 50%,rgba(145,145,145,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00919191', endColorstr='#00919191',GradientType=1 ); /* IE6-9 */
+	background-repeat: no-repeat;
+	background-size: 100% 2px;
+	background-position: bottom;
+}
+
+.navbar-left h3{
+	margin: 0;
+	padding: 15px;
+	padding-left: 30px;
+}
+
+.navbar-right span{
+	margin-right: 10px;
+	font-size: 15px;
+}
+
+.navbar-right a{
+	display: inline-block;
+	width: 100%;
+	padding: 15px;
+	padding-left: 30px;
+	text-decoration: none;
+}
+
+.navbar-right a:hover{
+	background-color: #bdc3c7;
+	color: white;
+}
+
+.toggle{
+	float: right;
+	width: 60px;
+	height: 60px;
+	background-color: #444;
+	border: 0px;
+	color: white;
+}
+
+.glyphicon-menu-hamburger{
+	font-size: 35px;
+}
+
+.navbar-brand{
+	height: 80px;
+}
+
+.painel{
+	background-color: white;
+	box-sizing: border-box;
+	padding: 0 20px 5px;
+	margin: 10px 10px;
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(135,135,135,1);
+	-moz-box-shadow: 1px 1px 5px 0px rgba(135,135,135,1);
+	box-shadow: 1px 1px 5px 0px rgba(135,135,135,1);
+}
+
+.painel-heading{
+	color: #6b6b6b;
+	padding: 15px 0;
+}
+
+.painel-body{
+	font-size: 20px;
+	padding-bottom: 15px;
+}
+
+.painel-body .glyphicon{
+	padding-right: 15px;
+}
+
+.logo-footer{
+	margin: 20px auto;
+	width: 40%;
+}
+
+footer{
+	padding: 10px;
+	background-color: #444;
+}
+
+footer h4{
+	color: yellow;
+}
+
+footer ul{
+	list-style-type: none;
+	text-align: left;
+	padding: 0;
+	color: white;
+}
+
+@media (max-width: 500px){
+	.navbar-brand{
+		margin-top: 10px;
+		height: 60px;
+	}
+}
+
+@media (min-width: 768px){
+
+	.itens{
+		background-color: #333;
+	}
+	
+	.navbar-left h3{
+		padding: 10px 20px;
+		color: white;
+	}
+
+	.navbar-right li, .navbar-left li{
+		margin-top: 20px;
+		background-image: none;
+	}
+
+	.navbar-right a{
+		border: 2px solid #444;
+		border-radius: 2px;
+		padding: 10px;
+	}
+
+	.navbar-right a:hover{
+		background-color: #666;
+	}
+
+	.logo-footer{
+		width: 275px;
+	}
+}
+
+@media (min-width: 992px){
+	.logo-footer{
+		width: 100%;
+		padding: 10px;
+		margin-top: 70px;
+	}
+}
+
+@media (min-width: 1200px){
+	.logo-footer{
+		width: 100%;
+		padding: 10px;
+		margin-top: 35px;
+	}
+}
