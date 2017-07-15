@@ -13,22 +13,33 @@
 			<version>4.12</version>
 			<scope>Test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-all-7.0</artifactId>
 			<version>1.0.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-servlet</artifactId>
+			<version>3.4.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ocpsoft.rewrite</groupId>
+			<artifactId>rewrite-config-prettyfaces</artifactId>
+			<version>3.4.1.Final</version>
+		</dependency>
 	</dependencies>
-	
+
 	<repositories>
 		<repository>
 			<id>JBoss Repository</id>
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
-	
+
 	<build>
 		<finalName>vedateam</finalName>
 		<plugins>
