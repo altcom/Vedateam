@@ -7,23 +7,33 @@ import javax.inject.Named;
 
 import br.net.altcom.modelo.entity.Usuario;
 
-@Named @SessionScoped
-public class UsuarioLogadoBean implements Serializable{
+@Named
+@SessionScoped
+public class UsuarioLogadoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Usuario usuario;
-	
-	public void usuarioLogado(Usuario usuario){
+
+	public void usuarioLogado(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	public void deslogar(){
+
+	public void deslogar() {
 		this.usuario = null;
 	}
-	
-	public boolean isLogado(){
+
+	public boolean isLogado() {
 		return (usuario != null);
+	}
+
+	public String dashboard() {
+		switch (usuario.getTipoDeAcesso()) {
+		case ADMIN:
+			return "admin.xhtml";
+		default:
+			return "";
+		}
 	}
 
 	public Usuario getUsuario() {

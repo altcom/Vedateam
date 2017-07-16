@@ -15,21 +15,21 @@ public class LoginBean {
 	private UsuarioLogadoBean logadoBean;
 	@Inject
 	private UsuarioDAO usuarioDAO;
-	
+
 	public String login() {
 		Usuario usuarioDoBanco = usuarioDAO.buscaPeloEmail(usuario);
-		
-		if (usuarioDoBanco == null){
-			System.out.println("Usuario não encontrado");			
+
+		if (usuarioDoBanco == null) {
+			System.out.println("Usuario não encontrado");
 			return "";
 		}
-		
-		if (usuarioDoBanco.getSenha().equals(this.usuario.getSenha())){
+
+		if (usuarioDoBanco.getSenha().equals(this.usuario.getSenha())) {
 			logadoBean.usuarioLogado(usuarioDoBanco);
 			System.out.println("Usuario Logado");
-			return "admin?faces-redirect=true";
+			return "pretty:Home";
 		}
-		
+
 		System.out.println("Senha inválida");
 		return "";
 	}

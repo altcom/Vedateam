@@ -8,4 +8,9 @@
 		<pattern value="/" />
 		<view-id value="/login.xhtml" />
 	</url-mapping>
+	
+	<url-mapping id="Home">
+		<pattern value="/dashboard" />
+		<view-id value="#{usuarioLogadoBean.dashboard}" />
+	</url-mapping>
 </pretty-config>
