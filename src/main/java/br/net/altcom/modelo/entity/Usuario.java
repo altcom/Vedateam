@@ -1,9 +1,13 @@
 package br.net.altcom.modelo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import br.net.altcom.modelo.TipoDeAcesso;
 
 @Entity
 public class Usuario {
@@ -14,6 +18,9 @@ public class Usuario {
 	private Integer codigo;
 	private String email;
 	private String senha;
+	
+	@Enumerated(EnumType.STRING)
+	private TipoDeAcesso tipoDeAcesso;
 
 	public Integer getCodigo() {
 		return codigo;
@@ -37,5 +44,13 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public TipoDeAcesso getTipoDeAcesso() {
+		return tipoDeAcesso;
+	}
+	
+	public void setTipoDeAcesso(TipoDeAcesso tipoDeAcesso) {
+		this.tipoDeAcesso = tipoDeAcesso;
 	}
 }
