@@ -10,6 +10,7 @@ public class RepresentanteExcel implements Serializable, Runnable{
 	@Override
 	public void run() {
 		System.out.println("Executando RepresentanteExcel");
+		System.out.println("Utiliando Excel: " + sheet.getSheetName());
 	}
 	
 	public void setSheet(ExcelSheet sheet) {
