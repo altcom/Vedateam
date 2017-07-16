@@ -27,7 +27,7 @@ public class LoginBean {
 		if (usuarioDoBanco.getSenha().equals(this.usuario.getSenha())){
 			logadoBean.usuarioLogado(usuarioDoBanco);
 			System.out.println("Usuario Logado");
-			return "";
+			return "admin?faces-redirect=true";
 		}
 		
 		System.out.println("Senha inválida");
