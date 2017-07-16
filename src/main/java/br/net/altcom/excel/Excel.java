@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import com.monitorjbl.xlsx.StreamingReader;
@@ -18,10 +17,10 @@ public class Excel implements AutoCloseable {
 		this.inputStream = stream;
 	}
 
-	public List<Sheet> getSheets() {
-		List<Sheet> sheets = new ArrayList<>();
+	public List<ExcelSheet> getExcelSheets() {
+		List<ExcelSheet> sheets = new ArrayList<>();
 		workbook = StreamingReader.builder().open(inputStream);
-		workbook.forEach(sheet -> sheets.add(sheet));
+		workbook.forEach(sheet -> sheets.add(new ExcelSheet(sheet)));
 		
 		return sheets;
 	}

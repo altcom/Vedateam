@@ -10,10 +10,10 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.poi.ss.usermodel.Sheet;
 import org.primefaces.model.UploadedFile;
 
 import br.net.altcom.excel.Excel;
+import br.net.altcom.excel.ExcelSheet;
 import br.net.altcom.excel.RepresentanteExcel;
 
 @Named
@@ -23,7 +23,7 @@ public class adminBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private UploadedFile file;
-	private List<Sheet> sheets = new ArrayList<>();
+	private List<ExcelSheet> sheets = new ArrayList<>();
 	
 	@Inject
 	private RepresentanteExcel representanteExcel;
@@ -40,14 +40,14 @@ public class adminBean implements Serializable {
 			}
 
 			try (Excel excel = new Excel(inputstream)) {
-				sheets = excel.getSheets();
+				sheets = excel.getExcelSheets();
 			} catch (Exception e1) {
 				System.out.println("Erro ao costruir Excel");
 			}
 		}
 	}
 
-	public void executarExcel(Sheet sheet){
+	public void executarExcel(ExcelSheet sheet){
 		System.out.println("Planilha selecionada: " + sheet.getSheetName());
 		new Thread(this.representanteExcel).start();
 	}
@@ -60,7 +60,7 @@ public class adminBean implements Serializable {
 		this.file = file;
 	}
 
-	public List<Sheet> getSheets() {
+	public List<ExcelSheet> getSheets() {
 		return sheets;
 	}
 }
