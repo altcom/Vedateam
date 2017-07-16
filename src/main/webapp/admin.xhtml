@@ -17,7 +17,7 @@
 			</h:form>
 			<h:form>
 				<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
-					<p>#{sheet.getSheetName()}</p> <p:commandButton actionListener="#{adminBean.executarExcel(sheet)}"/> 
+					<p>#{sheet}</p> <p:commandButton actionListener="#{adminBean.executarExcel(sheet)}"/> 
 				</p:dataList>
 			</h:form>
 		</section>
