@@ -1,8 +1,6 @@
 package br.net.altcom.bean;
 
 import javax.enterprise.inject.Model;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import org.primefaces.model.UploadedFile;
 
@@ -13,8 +11,7 @@ public class adminBean {
 	 
     public void upload() {
         if(file != null) {
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        	System.out.println("Arquivo: " + file.getFileName() + " Upload");
         }
     }
     
