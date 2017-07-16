@@ -23,12 +23,11 @@ public class AdminBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private UploadedFile file;
-	private List<ExcelSheet> sheets = new ArrayList<>();
+	private InputStream inputstream;
+	private List<String> sheets = new ArrayList<>();
 	
 	@Inject
 	private RepresentanteExcel representanteExcel;
-
-	private InputStream inputstream;
 	
 	public void upload() {
 		if (file != null) {
@@ -41,7 +40,7 @@ public class AdminBean implements Serializable {
 			}
 
 			try (Excel excel = new Excel(inputstream)) {
-				sheets = excel.getExcelSheets();
+				sheets = excel.getSheetsName();
 			} catch (Exception e1) {
 				System.out.println("Erro ao costruir Excel");
 			}
@@ -50,7 +49,6 @@ public class AdminBean implements Serializable {
 
 	public void executarExcel(ExcelSheet sheet){
 		System.out.println("Planilha selecionada: " + sheet.getSheetName());
-		this.representanteExcel.setSheet(sheet);
 		new Thread(this.representanteExcel).start();
 	}
 	
@@ -62,7 +60,7 @@ public class AdminBean implements Serializable {
 		this.file = file;
 	}
 
-	public List<ExcelSheet> getSheets() {
+	public List<String> getSheets() {
 		return sheets;
 	}
 }
