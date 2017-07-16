@@ -49,6 +49,7 @@ public class AdminBean implements Serializable {
 
 	public void executarExcel(ExcelSheet sheet){
 		System.out.println("Planilha selecionada: " + sheet.getSheetName());
+		this.representanteExcel.setInputStream(this.inputstream);
 		new Thread(this.representanteExcel).start();
 	}
 	
