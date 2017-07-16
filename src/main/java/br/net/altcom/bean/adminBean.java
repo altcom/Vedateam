@@ -42,6 +42,10 @@ public class adminBean implements Serializable {
 		}
 	}
 
+	public void executarExcel(Sheet sheet){
+		System.out.println("Planilha selecionada: " + sheet.getSheetName());
+	}
+	
 	public UploadedFile getFile() {
 		return file;
 	}

@@ -15,9 +15,11 @@
 	
 				<p:commandButton value="Submit" ajax="false" actionListener="#{adminBean.upload}"/>
 			</h:form>
-			<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
-				<p>#{sheet.getSheetName()}</p>
-			</p:dataList>
+			<h:form>
+				<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
+					<p>#{sheet.getSheetName()}</p> <p:commandButton actionListener="#{adminBean.executarExcel(sheet)}"/> 
+				</p:dataList>
+			</h:form>
 		</section>
 	</ui:define>
 </ui:composition>
