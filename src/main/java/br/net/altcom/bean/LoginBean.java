@@ -12,8 +12,10 @@ public class LoginBean {
 	private Usuario usuario = new Usuario();
 
 	@Inject
+	private UsuarioLogadoBean logadoBean;
+	@Inject
 	private UsuarioDAO usuarioDAO;
-
+	
 	public String login() {
 		Usuario usuarioDoBanco = usuarioDAO.buscaPeloEmail(usuario);
 		
@@ -23,6 +25,7 @@ public class LoginBean {
 		}
 		
 		if (usuarioDoBanco.getSenha().equals(this.usuario.getSenha())){
+			logadoBean.usuarioLogado(usuarioDoBanco);
 			System.out.println("Usuario Logado");
 			return "";
 		}
