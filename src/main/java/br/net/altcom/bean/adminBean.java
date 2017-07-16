@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.poi.ss.usermodel.Sheet;
 import org.primefaces.model.UploadedFile;
 
 import br.net.altcom.excel.Excel;
+import br.net.altcom.excel.RepresentanteExcel;
 
 @Named
 @ViewScoped
@@ -22,7 +24,10 @@ public class adminBean implements Serializable {
 	
 	private UploadedFile file;
 	private List<Sheet> sheets = new ArrayList<>();
-
+	
+	@Inject
+	private RepresentanteExcel representanteExcel;
+	
 	public void upload() {
 		if (file != null) {
 			System.out.println("Arquivo: " + file.getFileName() + " Upload");
@@ -44,6 +49,7 @@ public class adminBean implements Serializable {
 
 	public void executarExcel(Sheet sheet){
 		System.out.println("Planilha selecionada: " + sheet.getSheetName());
+		new Thread(this.representanteExcel).start();
 	}
 	
 	public UploadedFile getFile() {
