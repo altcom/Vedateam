@@ -14,18 +14,15 @@ public class UsuarioDAO {
 	@Inject
 	private EntityManager manager;
 
-	public boolean verificarUsuarioNoBanco(Usuario usuario) {
+	public Usuario buscaPeloEmail(Usuario usuario) {
 		String jpql = "SELECT u FROM Usuario u WHERE u.email = :email";
 		TypedQuery<Usuario> query = manager.createQuery(jpql, Usuario.class);
 		query.setParameter("email", usuario.getEmail());
-		try {
-			Usuario usuarioDoBanco = query.getSingleResult();
-			if (usuarioDoBanco.getSenha().equals(usuario.getSenha()))
-				return true;
 
-			return false;
+		try {
+			return query.getSingleResult();
 		} catch (NoResultException e) {
-			return false;
+			return null;
 		}
 	}
 }
