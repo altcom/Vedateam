@@ -18,7 +18,7 @@ import br.net.altcom.excel.RepresentanteExcel;
 
 @Named
 @ViewScoped
-public class adminBean implements Serializable {
+public class AdminBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -27,11 +27,12 @@ public class adminBean implements Serializable {
 	
 	@Inject
 	private RepresentanteExcel representanteExcel;
+
+	private InputStream inputstream;
 	
 	public void upload() {
 		if (file != null) {
 			System.out.println("Arquivo: " + file.getFileName() + " Upload");
-			InputStream inputstream = null;
 
 			try {
 				inputstream = file.getInputstream();
