@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 public abstract class CRUD<T> {
 
 	@Inject
-	private EntityManager manager;
+	protected EntityManager manager;
 
 	public void adiciona(T t) {
 		this.manager.persist(t);
