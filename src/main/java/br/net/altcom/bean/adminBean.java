@@ -1,7 +1,6 @@
 package br.net.altcom.bean;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,39 +19,35 @@ import br.net.altcom.excel.RepresentanteExcel;
 public class AdminBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private UploadedFile file;
-	private InputStream inputstream;
+	private byte[] contents;
 	private List<String> sheets = new ArrayList<>();
-	
+
 	@Inject
 	private RepresentanteExcel representanteExcel;
-	
+
 	public void upload() {
 		if (file != null) {
 			System.out.println("Arquivo: " + file.getFileName() + " Upload");
+			this.contents = file.getContents();
 
-			try {
-				inputstream = file.getInputstream();
-			} catch (IOException e1) {
-				System.out.println("Erro getInputStream");
-			}
-
-			try (Excel excel = new Excel(inputstream)) {
-				sheets = excel.getSheetsName();
+			try (Excel excel = new Excel(new ByteArrayInputStream(this.contents))) {
+				this.sheets = excel.getSheetsName();
 			} catch (Exception e1) {
 				System.out.println("Erro ao costruir Excel");
 			}
 		}
 	}
 
-	public void executarExcel(String sheet){
+	public void executarExcel(String sheet) {
 		System.out.println("Planilha selecionada: " + sheet);
-		this.representanteExcel.setInputStream(this.inputstream);
+
+		this.representanteExcel.setByte(contents);
 		this.representanteExcel.setSheetName(sheet);
 		new Thread(this.representanteExcel).start();
 	}
-	
+
 	public UploadedFile getFile() {
 		return file;
 	}
