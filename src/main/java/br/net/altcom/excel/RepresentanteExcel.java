@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.poi.ss.usermodel.Row;
 
+import br.net.altcom.dao.RepresentanteDAO;
 import br.net.altcom.modelo.entity.Representante;
 
 public class RepresentanteExcel implements Serializable, Runnable {
@@ -14,7 +17,10 @@ public class RepresentanteExcel implements Serializable, Runnable {
 	private static final long serialVersionUID = 1L;
 	private String sheetName;
 	private byte[] contents;
-
+	
+	@Inject
+	private RepresentanteDAO representanteDAO;
+	
 	@Override
 	public void run() {
 		System.out.println("Executando RepresentanteExcel");
@@ -29,6 +35,7 @@ public class RepresentanteExcel implements Serializable, Runnable {
 
 				for (Row row : rows) {
 					Representante representante = getRepresentante(row);
+					representanteDAO.adiciona(representante);
 				}
 			}
 
