@@ -14,7 +14,10 @@
 				<p:fileUpload mode="simple" skinSimple="true" value="#{adminBean.file}" />
 	
 				<p:commandButton value="Submit" ajax="false" actionListener="#{adminBean.upload}"/>
-			</h:form> 
+			</h:form>
+			<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
+				<p>#{sheet.getSheetName()}</p>
+			</p:dataList>
 		</section>
 	</ui:define>
 </ui:composition>
