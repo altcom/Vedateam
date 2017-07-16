@@ -13,7 +13,6 @@ import javax.inject.Named;
 import org.primefaces.model.UploadedFile;
 
 import br.net.altcom.excel.Excel;
-import br.net.altcom.excel.ExcelSheet;
 import br.net.altcom.excel.RepresentanteExcel;
 
 @Named
