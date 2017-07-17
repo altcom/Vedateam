@@ -12,11 +12,9 @@ import org.apache.poi.ss.usermodel.Row;
 import br.net.altcom.dao.RepresentanteDAO;
 import br.net.altcom.modelo.entity.Representante;
 
-public class RepresentanteExcel implements Serializable, Runnable {
+public class RepresentanteExcel extends ExcelProcessor implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private String sheetName;
-	private byte[] contents;
 	
 	@Inject
 	private RepresentanteDAO representanteDAO;
@@ -56,13 +54,5 @@ public class RepresentanteExcel implements Serializable, Runnable {
 		representante.setCodigo(codigo);
 		
 		return representante;
-	}
-
-	public void setSheetName(String sheetName) {
-		this.sheetName = sheetName;
-	}
-
-	public void setByte(byte[] contents) {
-		this.contents = contents;
 	}
 }
