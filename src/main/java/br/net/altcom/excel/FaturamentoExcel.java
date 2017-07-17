@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import org.apache.poi.ss.usermodel.Row;
 
+import br.net.altcom.dao.ProdutoDAO;
 import br.net.altcom.dao.RegionalDAO;
 import br.net.altcom.dao.RepresentanteDAO;
 import br.net.altcom.modelo.entity.Produto;
@@ -23,6 +24,8 @@ public class FaturamentoExcel extends ExcelProcessor implements Serializable {
 	private RegionalDAO regionalDAO;
 	@Inject
 	private RepresentanteDAO representanteDAO;
+	@Inject
+	private ProdutoDAO produtoDAO;
 
 	@Override
 	public void run() {
@@ -52,23 +55,36 @@ public class FaturamentoExcel extends ExcelProcessor implements Serializable {
 		Regional regional = new Regional();
 		regional.setNome(row.getCell(0).getStringCellValue());
 		regional = regionalDAO.buscaPeloNome(regional);
-		
+
 		Representante representante = new Representante();
 		representante.setNome(row.getCell(2).getStringCellValue());
-		
+
 		Integer codigo = new Integer("0");
 		String codigoTexto = row.getCell(1).getStringCellValue();
-		if(!codigoTexto.equals("-")){			
+		if (!codigoTexto.equals("-")) {
 			codigo = new Integer(row.getCell(1).getStringCellValue());
 		}
 		representante.setCodigo(codigo);
-		
+
 		representante = representanteDAO.buscaPeloCodigo(representante);
-		
+
+		getProduto(row);
+	}
+
+	private Produto getProduto(Row row) {
 		Produto produto = new Produto();
 		produto.setProduto(row.getCell(3).getStringCellValue());
 		produto.setFamilia(row.getCell(4).getStringCellValue());
 		produto.setCodigo(row.getCell(5).getStringCellValue());
 		produto.setItem(row.getCell(6).getStringCellValue());
+
+		Produto produtoDoBanco = produtoDAO.buscaPeloCodigo(produto);
+
+		if (produtoDoBanco == null) {
+			produtoDAO.adiciona(produto);
+			return produtoDAO.buscaPeloCodigo(produto);
+		} else {
+			return produtoDoBanco;
+		}
 	}
 }
