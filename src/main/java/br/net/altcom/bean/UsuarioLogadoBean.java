@@ -31,6 +31,8 @@ public class UsuarioLogadoBean implements Serializable {
 		switch (usuario.getTipoDeAcesso()) {
 		case ADMIN:
 			return "admin.xhtml";
+		case REPRESENTANTE:
+			return "representante.xhtml";
 		default:
 			return "";
 		}
