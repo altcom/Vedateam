@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+.grafico{
+	margin-bottom: 10px;
+}
+
+.grafico h4{
+	text-align: center;
+}
+
+.progresso {
+	height: 150px;
+	width: 150px;
+	margin: 0 auto;
+	box-shadow: none;
+	display: block;
+	background-color: transparent;
+}
+
+.progresso p{
+	margin: 0;
+	font-size: 30px;
+}
+
+.progresso > svg {
+	height: 100%;
+	display: block;
+}
