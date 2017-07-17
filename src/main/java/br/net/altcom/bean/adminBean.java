@@ -24,7 +24,7 @@ public class AdminBean implements Serializable {
 	private byte[] contents;
 	private List<String> sheets = new ArrayList<>();
 	private String tipoDoExcel;
-	
+
 	@Inject
 	private RepresentanteExcel representanteExcel;
 
@@ -44,9 +44,21 @@ public class AdminBean implements Serializable {
 	public void executarExcel(String sheet) {
 		System.out.println("Planilha selecionada: " + sheet);
 
-		this.representanteExcel.setByte(contents);
-		this.representanteExcel.setSheetName(sheet);
-		new Thread(this.representanteExcel).start();
+		switch (tipoDoExcel) {
+		case "representante":
+			System.out.println("Representante Selecionado");
+			this.representanteExcel.setByte(contents);
+			this.representanteExcel.setSheetName(sheet);
+			new Thread(this.representanteExcel).start();
+			break;
+		case "regional":
+			System.out.println("Regional Selecionado");
+
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	public UploadedFile getFile() {
@@ -60,7 +72,11 @@ public class AdminBean implements Serializable {
 	public List<String> getSheets() {
 		return sheets;
 	}
-	
+
+	public void setTipoDoExcel(String tipoDoExcel) {
+		this.tipoDoExcel = tipoDoExcel;
+	}
+
 	public String getTipoDoExcel() {
 		return tipoDoExcel;
 	}
