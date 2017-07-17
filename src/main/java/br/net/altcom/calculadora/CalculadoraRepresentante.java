@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Month;
 import java.time.YearMonth;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -20,16 +21,20 @@ public class CalculadoraRepresentante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Meta meta;
+
 	private BigDecimal progressoMeta = BigDecimal.ZERO;
 	private BigDecimal porcentagemDoHabilitador = BigDecimal.ZERO;
+
+	private Set<Cliente> clientesAtivos = new HashSet<>();
+	private Set<Cliente> clientesNaBase = new HashSet<>();
+	private Set<Cliente> clientesNovo = new HashSet<>();
 
 	@Inject
 	private MetaDAO metaDAO;
 	@Inject
 	private FaturamentoDAO faturamentoDAO;
+
 	private YearMonth data = YearMonth.of(2017, Month.APRIL);
-	private Set<Cliente> clientesAtivos;
-	private Set<Cliente> clientesNaBase;
 
 	public void calcula(Representante representante) {
 		try {
@@ -37,6 +42,7 @@ public class CalculadoraRepresentante implements Serializable {
 			buscaProgressoMeta(representante);
 			buscaClientesAtivos(representante);
 			buscaClientesNaBase(representante);
+			pegaClientesNovos();
 			calculaPorcentagemDoHabilitador();
 		} catch (MetaNaoEncontradaException e) {
 			System.out.println("Meta não encontrada");
@@ -51,14 +57,19 @@ public class CalculadoraRepresentante implements Serializable {
 		progressoMeta = faturamentoDAO.somaDoMesDeUmRepresentante(representante, data);
 	}
 
-	private void buscaClientesAtivos(Representante representante){
+	private void buscaClientesAtivos(Representante representante) {
 		clientesAtivos = faturamentoDAO.buscarClientesAtivosDoMesDeUmRepresentante(representante, data);
 	}
-	
-	private void buscaClientesNaBase(Representante representante){
+
+	private void buscaClientesNaBase(Representante representante) {
 		clientesNaBase = faturamentoDAO.buscaClientesEntreMes(representante, data.minusMonths(6), data.minusMonths(1));
 	}
-	
+
+	private void pegaClientesNovos() {
+		this.clientesNovo = new HashSet<>(this.clientesAtivos);
+		clientesNovo.removeAll(this.clientesNaBase);
+	}
+
 	private BigDecimal calculaPorcentagemDoHabilitador() {
 		BigDecimal metaFaturamento = this.meta.getFaturamento();
 		return porcentagemDoHabilitador = this.progressoMeta.divide(metaFaturamento, 2, RoundingMode.CEILING);
@@ -75,12 +86,16 @@ public class CalculadoraRepresentante implements Serializable {
 	public BigDecimal getPorcentagemDoHabilitador() {
 		return porcentagemDoHabilitador;
 	}
-	
+
 	public Set<Cliente> getClientesAtivos() {
 		return clientesAtivos;
 	}
-	
+
 	public Set<Cliente> getClientesNaBase() {
 		return clientesNaBase;
+	}
+
+	public Set<Cliente> getClientesNovo() {
+		return clientesNovo;
 	}
 }
