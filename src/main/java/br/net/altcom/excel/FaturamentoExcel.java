@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import br.net.altcom.dao.ProdutoDAO;
 import br.net.altcom.dao.RegionalDAO;
 import br.net.altcom.dao.RepresentanteDAO;
+import br.net.altcom.modelo.entity.Cliente;
 import br.net.altcom.modelo.entity.Produto;
 import br.net.altcom.modelo.entity.Regional;
 import br.net.altcom.modelo.entity.Representante;
@@ -68,7 +69,10 @@ public class FaturamentoExcel extends ExcelProcessor implements Serializable {
 
 		representante = representanteDAO.buscaPeloCodigo(representante);
 
-		getProduto(row);
+		Produto produto = getProduto(row);
+		
+		Cliente cliente = new Cliente();
+		cliente.setNome(row.getCell(7).getStringCellValue());
 	}
 
 	private Produto getProduto(Row row) {
