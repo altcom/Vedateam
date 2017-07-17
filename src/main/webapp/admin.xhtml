@@ -22,6 +22,7 @@
 					<f:selectItem itemLabel="Representante" itemValue="representante" />
 					<f:selectItem itemLabel="Regional" itemValue="regional" />
 					<f:selectItem itemLabel="Meta" itemValue="meta" />
+					<f:selectItem itemLabel="Faturamento" itemValue="faturamento" />
 				</p:selectOneRadio>
 				<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
 					<p>#{sheet}</p> <p:commandButton actionListener="#{adminBean.executarExcel(sheet)}"/> 
