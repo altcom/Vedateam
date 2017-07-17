@@ -23,7 +23,8 @@ public class AdminBean implements Serializable {
 	private UploadedFile file;
 	private byte[] contents;
 	private List<String> sheets = new ArrayList<>();
-
+	private String tipoDoExcel;
+	
 	@Inject
 	private RepresentanteExcel representanteExcel;
 
@@ -58,5 +59,9 @@ public class AdminBean implements Serializable {
 
 	public List<String> getSheets() {
 		return sheets;
+	}
+	
+	public String getTipoDoExcel() {
+		return tipoDoExcel;
 	}
 }

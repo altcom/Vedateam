@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/websiteTemplate.xhtml">
@@ -16,6 +17,11 @@
 				<p:commandButton value="Submit" ajax="false" actionListener="#{adminBean.upload}"/>
 			</h:form>
 			<h:form>
+				<p:outputLabel for="TipoExcel" value="Tipo do Excel:" />
+				<p:selectOneRadio id="TipoExcel" value="#{adminBean.tipoDoExcel}">
+					<f:selectItem itemLabel="Representante" itemValue="representante" />
+					<f:selectItem itemLabel="Regional" itemValue="regional" />
+				</p:selectOneRadio>
 				<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
 					<p>#{sheet}</p> <p:commandButton actionListener="#{adminBean.executarExcel(sheet)}"/> 
 				</p:dataList>
