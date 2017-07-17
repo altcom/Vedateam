@@ -50,7 +50,12 @@ public class RepresentanteExcel extends ExcelProcessor implements Serializable{
 		representante.setNome(row.getCell(0).getStringCellValue());
 		representante.setEmail(row.getCell(5).getStringCellValue());
 
-		Integer codigo = new Integer(row.getCell(1).getStringCellValue());
+		Integer codigo = new Integer("0");
+		String codigoTexto = row.getCell(1).getStringCellValue();
+		
+		if(!codigoTexto.equals("-"))
+			codigo = new Integer(codigoTexto);
+		
 		representante.setCodigo(codigo);
 		
 		return representante;
