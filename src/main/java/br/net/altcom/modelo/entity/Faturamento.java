@@ -1,5 +1,8 @@
 package br.net.altcom.modelo.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,6 +24,9 @@ public class Faturamento {
 	@OneToOne
 	private Cliente cliente;
 
+	private LocalDate data;
+	private BigDecimal faturamento;
+	
 	public Regional getRegional() {
 		return regional;
 	}
@@ -51,5 +57,21 @@ public class Faturamento {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public BigDecimal getFaturamento() {
+		return faturamento;
+	}
+
+	public void setFaturamento(BigDecimal faturamento) {
+		this.faturamento = faturamento;
 	}
 }
