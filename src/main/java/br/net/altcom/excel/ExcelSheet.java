@@ -54,6 +54,10 @@ public class ExcelSheet {
 		return sheet.getSheetName();
 	}
 
+	public int getLastPositionOfTheRow() {
+		return lastPositionOfTheRow;
+	}
+	
 	public Row getHeader() {
 		return header;
 	}
