@@ -6,14 +6,20 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.poi.ss.usermodel.Row;
 
+import br.net.altcom.dao.MetaDAO;
 import br.net.altcom.modelo.entity.Meta;
 
 public class MetaExcel extends ExcelProcessor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private MetaDAO metaDAO;
+	
 	@Override
 	public void run() {
 		System.out.println("Executando MetaExcel");
@@ -45,13 +51,13 @@ public class MetaExcel extends ExcelProcessor implements Serializable {
 			Integer codigo = new Integer(row.getCell(1).getStringCellValue());
 			meta.setCodigo(codigo);
 
-			BigDecimal faturamento = new BigDecimal(row.getCell(i + 1).getStringCellValue());
+			String faturamentoTexto = row.getCell(i + 1).getStringCellValue().replace(",", ".").replace(".", "");
+			BigDecimal faturamento = new BigDecimal(faturamentoTexto);
 			meta.setFaturamento(faturamento);
 
-			meta.setMes(i + "2017");
+			meta.setMes(i + "-" +"2017");
 
-			System.out.println("Codigo: " + meta.getCodigo() + " faturamento: " + meta.getFaturamento() + " mes: "
-					+ meta.getMes());
+			metaDAO.adiciona(meta);
 		}
 	}
 }
