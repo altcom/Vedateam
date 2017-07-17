@@ -12,6 +12,7 @@ import javax.inject.Named;
 import org.primefaces.model.UploadedFile;
 
 import br.net.altcom.excel.Excel;
+import br.net.altcom.excel.MetaExcel;
 import br.net.altcom.excel.RegionalExcel;
 import br.net.altcom.excel.RepresentanteExcel;
 
@@ -30,6 +31,8 @@ public class AdminBean implements Serializable {
 	private RepresentanteExcel representanteExcel;
 	@Inject
 	private RegionalExcel regionalExcel;
+	@Inject
+	private MetaExcel metaExcel;
 
 	public void upload() {
 		if (file != null) {
@@ -59,6 +62,12 @@ public class AdminBean implements Serializable {
 			this.regionalExcel.setByte(contents);
 			this.regionalExcel.setSheetName(sheet);
 			new Thread(this.regionalExcel).start();
+			break;
+		case "meta":
+			System.out.println("Meta Selecionado");
+			this.metaExcel.setByte(contents);
+			this.metaExcel.setSheetName(sheet);
+			new Thread(this.metaExcel).start();
 			break;
 
 		default:
