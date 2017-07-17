@@ -29,12 +29,14 @@ public class CalculadoraRepresentante implements Serializable {
 	private FaturamentoDAO faturamentoDAO;
 	private YearMonth data = YearMonth.of(2017, Month.APRIL);
 	private Set<Cliente> clientesAtivos;
+	private Set<Cliente> clientesNaBase;
 
 	public void calcula(Representante representante) {
 		try {
 			buscaMeta(representante);
 			buscaProgressoMeta(representante);
 			buscaClientesAtivos(representante);
+			buscaClientesNaBase(representante);
 			calculaPorcentagemDoHabilitador();
 		} catch (MetaNaoEncontradaException e) {
 			System.out.println("Meta não encontrada");
@@ -51,6 +53,10 @@ public class CalculadoraRepresentante implements Serializable {
 
 	private void buscaClientesAtivos(Representante representante){
 		clientesAtivos = faturamentoDAO.buscarClientesAtivosDoMesDeUmRepresentante(representante, data);
+	}
+	
+	private void buscaClientesNaBase(Representante representante){
+		clientesNaBase = faturamentoDAO.buscaClientesEntreMes(representante, data.minusMonths(6), data.minusMonths(1));
 	}
 	
 	private BigDecimal calculaPorcentagemDoHabilitador() {
@@ -72,5 +78,9 @@ public class CalculadoraRepresentante implements Serializable {
 	
 	public Set<Cliente> getClientesAtivos() {
 		return clientesAtivos;
+	}
+	
+	public Set<Cliente> getClientesNaBase() {
+		return clientesNaBase;
 	}
 }
