@@ -5,12 +5,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Month;
 import java.time.YearMonth;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import br.net.altcom.dao.FaturamentoDAO;
 import br.net.altcom.dao.MetaDAO;
 import br.net.altcom.dao.exception.MetaNaoEncontradaException;
+import br.net.altcom.modelo.entity.Cliente;
 import br.net.altcom.modelo.entity.Meta;
 import br.net.altcom.modelo.entity.Representante;
 
@@ -26,11 +28,13 @@ public class CalculadoraRepresentante implements Serializable {
 	@Inject
 	private FaturamentoDAO faturamentoDAO;
 	private YearMonth data = YearMonth.of(2017, Month.APRIL);
+	private Set<Cliente> clientesAtivos;
 
 	public void calcula(Representante representante) {
 		try {
 			buscaMeta(representante);
 			buscaProgressoMeta(representante);
+			buscaClientesAtivos(representante);
 			calculaPorcentagemDoHabilitador();
 		} catch (MetaNaoEncontradaException e) {
 			System.out.println("Meta não encontrada");
@@ -45,6 +49,10 @@ public class CalculadoraRepresentante implements Serializable {
 		progressoMeta = faturamentoDAO.somaDoMesDeUmRepresentante(representante, data);
 	}
 
+	private void buscaClientesAtivos(Representante representante){
+		clientesAtivos = faturamentoDAO.buscarClientesAtivosDoMesDeUmRepresentante(representante, data);
+	}
+	
 	private BigDecimal calculaPorcentagemDoHabilitador() {
 		BigDecimal metaFaturamento = this.meta.getFaturamento();
 		return porcentagemDoHabilitador = this.progressoMeta.divide(metaFaturamento, 2, RoundingMode.CEILING);
@@ -60,5 +68,9 @@ public class CalculadoraRepresentante implements Serializable {
 
 	public BigDecimal getPorcentagemDoHabilitador() {
 		return porcentagemDoHabilitador;
+	}
+	
+	public Set<Cliente> getClientesAtivos() {
+		return clientesAtivos;
 	}
 }
