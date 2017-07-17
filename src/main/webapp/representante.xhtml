@@ -23,12 +23,12 @@
         		<div class="row panel-body" style="font-size: inherit;">
         			<div class="grafico col-xs-12 col-sm-3">
 	        			<div class="progresso" id="faturamento"></div>
-	        			<h:inputHidden id="faturamentoBar" value="1"/>
+	        			<h:inputHidden id="faturamentoBar" value="#{representanteBean.calculadora.porcentagemDoHabilitador}"/>
 	        		</div>
 	        		<div class="col-xs-12 col-sm-3">
 						<h4>Progresso Do Faturamento</h4>
 						<p>Meta: <small>#{representanteBean.getCalculadora().getMeta()}</small></p>
-						<p>Atual: <small>R$000</small></p>
+						<p>Atual: <small>#{representanteBean.getCalculadora().getProgressoMeta()}</small></p>
 	        		</div>    
         		</div>    		
         	</div>
