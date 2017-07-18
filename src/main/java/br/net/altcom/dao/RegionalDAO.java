@@ -19,4 +19,15 @@ public class RegionalDAO extends CRUD<Regional> {
 			return null;
 		}
 	}
+
+	public Regional buscaPeloCodigo(Integer codigo) {
+		String jpql = "SELECT r FROM Regional r WHERE r.codigo = :codigo";
+		TypedQuery<Regional> query = manager.createQuery(jpql, Regional.class);
+		query.setParameter("codigo", codigo);
+		try {
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }
