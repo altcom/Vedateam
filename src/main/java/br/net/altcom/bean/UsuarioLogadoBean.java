@@ -33,6 +33,8 @@ public class UsuarioLogadoBean implements Serializable {
 			return "admin.xhtml";
 		case REPRESENTANTE:
 			return "representante.xhtml";
+		case REGIONAL:
+			return "regional.xhtml";
 		default:
 			return "";
 		}
