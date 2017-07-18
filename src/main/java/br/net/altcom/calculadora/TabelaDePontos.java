@@ -41,4 +41,34 @@ public class TabelaDePontos {
 
 		return -5;
 	}
+
+	public static int pontosClientesNovo(int quantidade) throws IllegalArgumentException {
+		switch (quantidade) {
+		case 0:
+			return -50;
+		case 1:
+			return 50;
+		case 2:
+			return 70;
+		case 3:
+			return 90;
+		case 4:
+			return 110;
+		case 5:
+			return 130;
+		case 6:
+			return 150;
+		case 7:
+			return 175;
+		case 8:
+			return 200;
+		case 9:
+			return 225;
+		}
+
+		if (quantidade >= 10)
+			return 300;
+
+		throw new IllegalArgumentException();
+	}
 }
