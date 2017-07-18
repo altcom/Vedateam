@@ -7,13 +7,66 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/template/websiteTemplate.xhtml">
 	<ui:define name="script">
+		<title>#{regionalBean.getRegional().getNome()}</title>
+		<h:outputScript library="js" name="progressBar.js"/>
+		<h:outputScript library="js" name="regional.js"/>
+		<h:outputStylesheet library="css" name="progressBar.css"/>
 	</ui:define>
 	<ui:define name="nomeUsuario">
+		#{regionalBean.getRegional().getNome()}
 	</ui:define>
 	<ui:define name="main">
 		<div class="container">
-
-		</div>		
+			<div class="painel">
+				<div class="painel-heading">
+					<h3>Total de pontos no 1º Set <small>(Janeiro/Fevereiro/Abril)</small></h3>
+				</div>
+				<div class="painel-body" >
+					<div class="row">
+						<div class="col-sm-6 col-lg-3">
+							<div class="painel">
+								<div class="painel-heading">Faturamento</div>
+								<div class="painel-body"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>0</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-3">
+							<div class="painel">
+								<div class="painel-heading">Capilaridade</div>
+								<div class="painel-body"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>0</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-3">
+							<div class="painel">
+								<div class="painel-heading">Rentabilidade</div>
+								<div class="painel-body"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>0</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-3">
+			        		<div class="painel">
+								<div class="painel-heading">Pontos Acumulados</div>
+								<div class="painel-body"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>0</div>
+							</div>
+			        	</div>
+					</div><!-- end row div -->
+				</div>
+			</div><!-- end painel div -->
+			<div class="painel">
+        		<div class="painel-heading">
+        			<h3>Faturamento</h3>
+        		</div>
+	        	<div class="row panel-body">
+	        		<div class="grafico col-xs-12 col-sm-6">
+		        		<div class="progresso" id="faturamento"/>
+		        		<h:inputHidden id="faturamentoBar" value="#{regionalBean.calculadora.porcentagemDoHabilitador}"/>
+		       		</div>
+		       		<div class="col-xs-12 col-sm-6">
+						<h4>Progresso Do Faturamento</h4>
+						<p>Meta: <small>#{regionalBean.getCalculadora().getMeta()}</small></p>
+						<p>Atual: <small>#{regionalBean.getCalculadora().getProgressoMeta()}</small></p>
+	        		</div>    
+	        	</div>
+	        </div>
+		</div>
 	</ui:define>
 </ui:composition>
 </html>
