@@ -24,6 +24,7 @@ public class CalculadoraRepresentante implements Serializable {
 
 	private BigDecimal progressoMeta = BigDecimal.ZERO;
 	private BigDecimal porcentagemDoHabilitador = BigDecimal.ZERO;
+	private int pontosHabilitador;
 
 	private Set<Cliente> clientesAtivos = new HashSet<>();
 	private Set<Cliente> clientesNaBase = new HashSet<>();
@@ -43,12 +44,19 @@ public class CalculadoraRepresentante implements Serializable {
 			buscaClientesAtivos(representante);
 			buscaClientesNaBase(representante);
 			pegaClientesNovos();
-			calculaPorcentagemDoHabilitador();
+			
+			calcularPontosDoHabilitador();
 		} catch (MetaNaoEncontradaException e) {
 			System.out.println("Meta não encontrada");
 		}
 	}
 
+	private void calcularPontosDoHabilitador(){
+		calculaPorcentagemDoHabilitador();
+		BigDecimal porcentagem = this.porcentagemDoHabilitador.multiply(new BigDecimal("100"));
+		pontosHabilitador = TabelaDePontos.pontosHabilitadorRepresentante(porcentagem.doubleValue());
+	}
+	
 	private void buscaMeta(Representante representante) throws MetaNaoEncontradaException {
 		this.meta = metaDAO.buscaMetaDoRepresentante(representante, "4-2017");
 	}
@@ -85,6 +93,10 @@ public class CalculadoraRepresentante implements Serializable {
 
 	public BigDecimal getPorcentagemDoHabilitador() {
 		return porcentagemDoHabilitador;
+	}
+	
+	public int getPontosHabilitador() {
+		return pontosHabilitador;
 	}
 
 	public Set<Cliente> getClientesAtivos() {
