@@ -36,16 +36,15 @@ public class CalculadoraRepresentante implements Serializable {
 	private FaturamentoDAO faturamentoDAO;
 
 	private YearMonth data = YearMonth.of(2017, Month.APRIL);
+	private int pontosClientesNovo;
 
 	public void calcula(Representante representante) {
 		try {
 			buscaMeta(representante);
 			buscaProgressoMeta(representante);
-			buscaClientesAtivos(representante);
-			buscaClientesNaBase(representante);
-			pegaClientesNovos();
 			
 			calcularPontosDoHabilitador();
+			calcularPontosClienteNovos(representante);
 		} catch (MetaNaoEncontradaException e) {
 			System.out.println("Meta não encontrada");
 		}
@@ -55,6 +54,11 @@ public class CalculadoraRepresentante implements Serializable {
 		calculaPorcentagemDoHabilitador();
 		BigDecimal porcentagem = this.porcentagemDoHabilitador.multiply(new BigDecimal("100"));
 		pontosHabilitador = TabelaDePontos.pontosHabilitadorRepresentante(porcentagem.doubleValue());
+	}
+	
+	private void calcularPontosClienteNovos(Representante representante){
+		pegaClientesNovos(representante);
+		pontosClientesNovo = TabelaDePontos.pontosClientesNovo(this.clientesNovo.size());
 	}
 	
 	private void buscaMeta(Representante representante) throws MetaNaoEncontradaException {
@@ -73,7 +77,9 @@ public class CalculadoraRepresentante implements Serializable {
 		clientesNaBase = faturamentoDAO.buscaClientesEntreMes(representante, data.minusMonths(6), data.minusMonths(1));
 	}
 
-	private void pegaClientesNovos() {
+	private void pegaClientesNovos(Representante representante) {
+		buscaClientesAtivos(representante);
+		buscaClientesNaBase(representante);
 		this.clientesNovo = new HashSet<>(this.clientesAtivos);
 		clientesNovo.removeAll(this.clientesNaBase);
 	}
@@ -97,6 +103,10 @@ public class CalculadoraRepresentante implements Serializable {
 	
 	public int getPontosHabilitador() {
 		return pontosHabilitador;
+	}
+	
+	public int getPontosClientesNovo() {
+		return pontosClientesNovo;
 	}
 
 	public Set<Cliente> getClientesAtivos() {
