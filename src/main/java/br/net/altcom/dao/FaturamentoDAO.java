@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Stateless;
@@ -72,5 +73,9 @@ public class FaturamentoDAO extends CRUD<Faturamento> {
 
 		BigDecimal total = query.getSingleResult();
 		return (total == null) ? BigDecimal.ZERO : total;
+	}
+
+	public void salvarTodosFaturamento(List<Faturamento> faturamentos) {
+		faturamentos.forEach(f -> manager.persist(f));
 	}
 }
