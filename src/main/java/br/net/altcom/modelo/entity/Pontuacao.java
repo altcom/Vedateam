@@ -12,7 +12,7 @@ public class Pontuacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer codigo;
-	private int mes;
+	private String mes;
 	private int pontuacao;
 
 	public Integer getCodigo() {
@@ -23,11 +23,11 @@ public class Pontuacao {
 		this.codigo = codigo;
 	}
 
-	public int getMes() {
+	public String getMes() {
 		return mes;
 	}
 
-	public void setMes(int mes) {
+	public void setMes(String mes) {
 		this.mes = mes;
 	}
 
@@ -37,5 +37,37 @@ public class Pontuacao {
 
 	public void setPontuacao(int pontuacao) {
 		this.pontuacao = pontuacao;
+	}
+
+	public String getMesNome() {
+		String[] split = mes.split("-");
+		switch (split[0]) {
+		case "1":
+			return "Janeiro";
+		case "2":
+			return "Fevereiro";
+		case "3":
+			return "Março";
+		case "4":
+			return "Abril";
+		case "5":
+			return "Maio";
+		case "6":
+			return "Junho";
+		case "7":
+			return "Julho";
+		case "8":
+			return "Agosto";
+		case "9":
+			return "Setembro";
+		case "10":
+			return "Outubro";
+		case "11":
+			return "Novembro";
+		case "12":
+			return "Dezembro";
+		default:
+			return "";
+		}
 	}
 }
