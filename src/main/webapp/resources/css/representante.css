@@ -1,0 +1,78 @@
+@CHARSET "UTF-8";
+
+.ui-paginator-top{
+	display: none;
+}
+
+.pontuacaoSet{
+	height: 280px;
+}
+
+.pontuacao{
+	text-align: center;
+}
+
+.pontuacao ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pontuacao li{
+	padding: 10px;
+}
+
+.informacoes{
+	padding-left: 20px;
+}
+
+.informacoes h4{
+	border-top: 1px solid #4a4a4a;
+	padding-top: 10px;
+}
+
+.informacoes p{
+	padding-left: 20px;
+}
+
+.btn-clientes{
+	width: 100%;
+}
+
+.btn-clientes p{
+	float: left;
+	text-indent: 15px;
+	margin: 0;
+	display: inline-block;
+}
+
+.btn-clientes .glyphicon{
+	float: right;
+}
+
+#clientesNovos, #clientesAtivos, #clientesNaBase{
+	display: none;
+}
+
+@media (min-width: 768px){
+	.progressoFaturamento{
+		height: 280px;
+	}
+	
+	.progressoFaturamento .panel-body{
+		padding-top: 45px;
+	}
+	
+	.informacoes{
+		padding-left: 0;
+	}
+	
+	.informacoes h4{
+		border-top: 0;
+		padding-top: 0px;
+	}
+	
+	.informacoes p{
+		padding-left: 10px;
+	}
+}
