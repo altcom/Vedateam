@@ -5,10 +5,22 @@ import java.io.IOException;
 
 public abstract class ExcelProcessor implements Runnable {
 
-	protected static final long serialVersionUID = 1L;
-	protected String sheetName;
-	protected byte[] contents;
-	
+	private String sheetName;
+	private byte[] contents;
+
+	public int quantidadeDeLinha() {
+		int quantidade = 0;
+
+		try (Excel excel = new Excel(new ByteArrayInputStream(contents))) {
+			ExcelSheet excelSheet = excel.getExcelSheetByName(sheetName);
+			quantidade = excelSheet.getRowSize();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
+		return quantidade;
+	}
+
 	public void setSheetName(String sheetName) {
 		this.sheetName = sheetName;
 	}

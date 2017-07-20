@@ -9,14 +9,24 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 public class ExcelSheet {
 
-	public Sheet sheet;
+	private Sheet sheet;
 	private Row header;
 	private Iterator<Row> rowIterator;
 	private int lastPositionOfTheRow;
 	private boolean finish;
+	private int rowSize;
 
 	public ExcelSheet(Sheet sheet) {
 		this.sheet = sheet;
+		rowCount();
+	}
+
+	private void rowCount() {
+		rowIterator = sheet.rowIterator();
+		while (rowIterator.hasNext()) {
+			rowSize++;
+			rowIterator.next();
+		}
 	}
 
 	public void begin() {
@@ -28,7 +38,6 @@ public class ExcelSheet {
 	}
 
 	public synchronized List<Row> getPlusRow(int amount) {
-
 		List<Row> rows = new ArrayList<>();
 		amount += lastPositionOfTheRow;
 
@@ -38,7 +47,6 @@ public class ExcelSheet {
 				rows.add(rowNext);
 				lastPositionOfTheRow++;
 			} else {
-				System.out.println("Finalizado");
 				finish = true;
 				break;
 			}
@@ -57,8 +65,12 @@ public class ExcelSheet {
 	public int getLastPositionOfTheRow() {
 		return lastPositionOfTheRow;
 	}
-	
+
 	public Row getHeader() {
 		return header;
+	}
+
+	public int getRowSize() {
+		return rowSize;
 	}
 }
