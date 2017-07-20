@@ -1,7 +1,5 @@
 package br.net.altcom.excel;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,27 +18,12 @@ public class RegionalExcel extends ExcelProcessor implements Serializable {
 	private RegionalDAO regionalDAO;
 
 	@Override
-	public void run() {
-		System.out.println("Executando RegionalExcel");
-		System.out.println("Planilha que sera executada: " + sheetName);
+	protected void executa(ExcelSheet excelSheet) {
+		List<Row> rows = excelSheet.getPlusRow(10);
 
-		try (Excel excel = new Excel(new ByteArrayInputStream(contents))) {
-			ExcelSheet excelSheet = excel.getExcelSheetByName(sheetName);
-			excelSheet.begin();
-
-			while (!excelSheet.isFinish()) {
-				List<Row> rows = excelSheet.getPlusRow(10);
-
-				for (Row row : rows) {
-					Regional regional = getRegional(row);
-					regionalDAO.adiciona(regional);
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		for (Row row : rows) {
+			Regional regional = getRegional(row);
+			regionalDAO.adiciona(regional);
 		}
 	}
 

@@ -1,7 +1,5 @@
 package br.net.altcom.excel;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,31 +18,15 @@ public class RepresentanteExcel extends ExcelProcessor implements Serializable{
 	private RepresentanteDAO representanteDAO;
 	
 	@Override
-	public void run() {
-		System.out.println("Executando RepresentanteExcel");
-		System.out.println("Planilha que sera executada: " + sheetName);
+	protected void executa(ExcelSheet excelSheet) {
+		List<Row> rows = excelSheet.getPlusRow(10);
 
-		try (Excel excel = new Excel(new ByteArrayInputStream(contents))) {
-			ExcelSheet excelSheet = excel.getExcelSheetByName(sheetName);
-			excelSheet.begin();
-
-			while (!excelSheet.isFinish()) {
-				List<Row> rows = excelSheet.getPlusRow(10);
-
-				for (Row row : rows) {
-					Representante representante = getRepresentante(row);
-					representanteDAO.adiciona(representante);
-				}
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		for (Row row : rows) {
+			Representante representante = getRepresentante(row);
+			representanteDAO.adiciona(representante);
 		}
-
 	}
-
+	
 	private Representante getRepresentante(Row row) {
 		Representante representante = new Representante();
 		representante.setNome(row.getCell(0).getStringCellValue());
@@ -60,4 +42,5 @@ public class RepresentanteExcel extends ExcelProcessor implements Serializable{
 		
 		return representante;
 	}
+
 }

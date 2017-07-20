@@ -1,5 +1,8 @@
 package br.net.altcom.excel;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
 public abstract class ExcelProcessor implements Runnable {
 
 	protected static final long serialVersionUID = 1L;
@@ -16,6 +19,20 @@ public abstract class ExcelProcessor implements Runnable {
 
 	@Override
 	public void run() {
-		
+		try (Excel excel = new Excel(new ByteArrayInputStream(contents))) {
+			ExcelSheet excelSheet = excel.getExcelSheetByName(sheetName);
+			excelSheet.begin();
+
+			while (!excelSheet.isFinish()) {
+				executa(excelSheet);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
+
+	protected abstract void executa(ExcelSheet excelSheet);
 }
