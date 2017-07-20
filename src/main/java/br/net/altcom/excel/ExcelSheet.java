@@ -14,19 +14,9 @@ public class ExcelSheet {
 	private Iterator<Row> rowIterator;
 	private int lastPositionOfTheRow;
 	private boolean finish;
-	private int rowSize;
 
 	public ExcelSheet(Sheet sheet) {
 		this.sheet = sheet;
-		rowCount();
-	}
-
-	private void rowCount() {
-		rowIterator = sheet.rowIterator();
-		while (rowIterator.hasNext()) {
-			rowSize++;
-			rowIterator.next();
-		}
 	}
 
 	public void begin() {
@@ -68,9 +58,5 @@ public class ExcelSheet {
 
 	public Row getHeader() {
 		return header;
-	}
-
-	public int getRowSize() {
-		return rowSize;
 	}
 }

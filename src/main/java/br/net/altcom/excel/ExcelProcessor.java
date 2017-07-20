@@ -8,19 +8,6 @@ public abstract class ExcelProcessor implements Runnable {
 	private String sheetName;
 	private byte[] contents;
 
-	public int quantidadeDeLinha() {
-		int quantidade = 0;
-
-		try (Excel excel = new Excel(new ByteArrayInputStream(contents))) {
-			ExcelSheet excelSheet = excel.getExcelSheetByName(sheetName);
-			quantidade = excelSheet.getRowSize();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-
-		return quantidade;
-	}
-
 	public void setSheetName(String sheetName) {
 		this.sheetName = sheetName;
 	}
@@ -40,8 +27,10 @@ public abstract class ExcelProcessor implements Runnable {
 			}
 
 		} catch (IOException e) {
+			System.out.println("Erro ao abrir: " + sheetName);
 			e.printStackTrace();
 		} catch (Exception e1) {
+			System.out.println("Erro: " + sheetName);
 			e1.printStackTrace();
 		}
 	}
