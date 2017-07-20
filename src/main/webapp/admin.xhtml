@@ -8,25 +8,32 @@
 
 <ui:composition template="/template/websiteTemplate.xhtml">
 	<ui:define name="main">
-		<section class="container container-fluid login"> 
-			<h:form enctype="multipart/form-data">
-				<p:growl id="messages" showDetail="true" />
-	
-				<p:fileUpload mode="simple" skinSimple="true" value="#{adminBean.file}" />
-	
-				<p:commandButton value="Submit" ajax="false" actionListener="#{adminBean.upload}"/>
-			</h:form>
+		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+		<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+		<section class="container container-fluid login">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+				<h:form enctype="multipart/form-data">
+					<p:fileUpload mode="simple" value="#{adminBean.file}"/>
+					<p:commandButton value="Submit" ajax="false" actionListener="#{adminBean.uploadExcel}"/>
+				</h:form>
+			  </div>
+			</div>
 			<h:form>
-				<p:outputLabel for="TipoExcel" value="Tipo do Excel:" />
-				<p:selectOneRadio id="TipoExcel" value="#{adminBean.tipoDoExcel}">
-					<f:selectItem itemLabel="Representante" itemValue="representante" />
-					<f:selectItem itemLabel="Regional" itemValue="regional" />
-					<f:selectItem itemLabel="Meta" itemValue="meta" />
-					<f:selectItem itemLabel="Faturamento" itemValue="faturamento" />
-				</p:selectOneRadio>
-				<p:dataList value="#{adminBean.sheets}" var="sheet" rendered="#{not empty adminBean.sheets}">
-					<p>#{sheet}</p> <p:commandButton actionListener="#{adminBean.executarExcel(sheet)}"/> 
-				</p:dataList>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p:dataList value="#{adminBean.sheetsName}" var="sheet">
+							<f:facet name="header">
+					            Tabelas
+					        </f:facet>
+							#{sheet} 
+							<p:commandButton value="Representante" actionListener="#{adminBean.processarRepresentanteExcel(sheet)}"/>
+							<p:commandButton value="Regional" actionListener="#{adminBean.processarRegionalExcel(sheet)}"/>
+							<p:commandButton value="Faturamento" actionListener="#{adminBean.processarFaturamentoExcel(sheet)}"/>
+							<p:commandButton value="Meta" actionListener="#{adminBean.processarMetaExcel(sheet)}"/>
+						</p:dataList>
+					</div>
+				</div>
 			</h:form>
 		</section>
 	</ui:define>

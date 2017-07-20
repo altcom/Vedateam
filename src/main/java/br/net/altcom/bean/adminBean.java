@@ -2,7 +2,6 @@ package br.net.altcom.bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -22,11 +21,9 @@ import br.net.altcom.excel.RepresentanteExcel;
 public class AdminBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	private UploadedFile file;
 	private byte[] contents;
-	private List<String> sheets = new ArrayList<>();
-	private String tipoDoExcel;
+	private List<String> sheetsName;
 
 	@Inject
 	private RepresentanteExcel representanteExcel;
@@ -37,51 +34,45 @@ public class AdminBean implements Serializable {
 	@Inject
 	private FaturamentoExcel faturamentoExcel;
 
-	public void upload() {
-		if (file != null) {
-			System.out.println("Arquivo: " + file.getFileName() + " Upload");
-			this.contents = file.getContents();
+	public void uploadExcel() {
+		if (file == null)
+			return;
 
-			try (Excel excel = new Excel(new ByteArrayInputStream(this.contents))) {
-				this.sheets = excel.getSheetsName();
-			} catch (Exception e1) {
-				System.out.println("Erro ao costruir Excel");
-			}
+		this.contents = file.getContents();
+
+		try (Excel excel = new Excel(new ByteArrayInputStream(this.contents))) {
+			sheetsName = excel.getSheetsName();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
-	public void executarExcel(String sheet) {
-		System.out.println("Planilha selecionada: " + sheet);
+	public void processarRepresentanteExcel(String sheetName) {
+		System.out.println("Processar Representante Excel");
+		this.representanteExcel.setSheetName(sheetName);
+		this.representanteExcel.setByte(this.contents);
+		new Thread(this.representanteExcel).start();
+	}
 
-		switch (tipoDoExcel) {
-		case "representante":
-			System.out.println("Representante Selecionado");
-			this.representanteExcel.setByte(contents);
-			this.representanteExcel.setSheetName(sheet);
-			new Thread(this.representanteExcel).start();
-			break;
-		case "regional":
-			System.out.println("Regional Selecionado");
-			this.regionalExcel.setByte(contents);
-			this.regionalExcel.setSheetName(sheet);
-			new Thread(this.regionalExcel).start();
-			break;
-		case "meta":
-			System.out.println("Meta Selecionado");
-			this.metaExcel.setByte(contents);
-			this.metaExcel.setSheetName(sheet);
-			new Thread(this.metaExcel).start();
-			break;
-		case "faturamento":
-			System.out.println("Faturamento Selecionado");
-			this.faturamentoExcel.setByte(contents);
-			this.faturamentoExcel.setSheetName(sheet);
-			new Thread(this.faturamentoExcel).start();
-			break;
+	public void processarRegionalExcel(String sheetName) {
+		System.out.println("Processar Regional Excel");
+		this.regionalExcel.setSheetName(sheetName);
+		this.regionalExcel.setByte(this.contents);
+		new Thread(this.regionalExcel).start();
+	}
 
-		default:
-			break;
-		}
+	public void processarFaturamentoExcel(String sheetName) {
+		System.out.println("Processar Faturamento Excel");
+		this.faturamentoExcel.setSheetName(sheetName);
+		this.faturamentoExcel.setByte(this.contents);
+		new Thread(this.faturamentoExcel).start();
+	}
+
+	public void processarMetaExcel(String sheetName) {
+		System.out.println("Processar Meta Excel");
+		this.metaExcel.setSheetName(sheetName);
+		this.metaExcel.setByte(this.contents);
+		new Thread(this.metaExcel).start();
 	}
 
 	public UploadedFile getFile() {
@@ -92,15 +83,7 @@ public class AdminBean implements Serializable {
 		this.file = file;
 	}
 
-	public List<String> getSheets() {
-		return sheets;
-	}
-
-	public void setTipoDoExcel(String tipoDoExcel) {
-		this.tipoDoExcel = tipoDoExcel;
-	}
-
-	public String getTipoDoExcel() {
-		return tipoDoExcel;
+	public List<String> getSheetsName() {
+		return sheetsName;
 	}
 }
