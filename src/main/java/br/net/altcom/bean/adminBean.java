@@ -13,6 +13,7 @@ import org.primefaces.model.UploadedFile;
 import br.net.altcom.excel.Excel;
 import br.net.altcom.excel.FaturamentoExcel;
 import br.net.altcom.excel.MetaExcel;
+import br.net.altcom.excel.ParticipacaoMixExcel;
 import br.net.altcom.excel.RegionalExcel;
 import br.net.altcom.excel.RepresentanteExcel;
 
@@ -33,6 +34,8 @@ public class AdminBean implements Serializable {
 	private MetaExcel metaExcel;
 	@Inject
 	private FaturamentoExcel faturamentoExcel;
+	@Inject
+	private ParticipacaoMixExcel participacaoMixExcel;
 
 	public void uploadExcel() {
 		if (file == null)
@@ -73,6 +76,13 @@ public class AdminBean implements Serializable {
 		this.metaExcel.setSheetName(sheetName);
 		this.metaExcel.setByte(this.contents);
 		new Thread(this.metaExcel).start();
+	}
+	
+	public void processarParticipacaoExcel(String sheetName) {
+		System.out.println("Processar Participacao Excel");
+		this.participacaoMixExcel.setSheetName(sheetName);
+		this.participacaoMixExcel.setByte(this.contents);
+		new Thread(this.participacaoMixExcel).start();
 	}
 
 	public UploadedFile getFile() {
