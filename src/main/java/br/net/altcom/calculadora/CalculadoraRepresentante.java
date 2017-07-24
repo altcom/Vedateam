@@ -20,7 +20,7 @@ import br.net.altcom.modelo.entity.Representante;
 public class CalculadoraRepresentante implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Meta meta;
+	private Meta meta = new Meta();
 
 	private BigDecimal progressoMeta = BigDecimal.ZERO;
 	private BigDecimal porcentagemDoHabilitador = BigDecimal.ZERO;
@@ -59,6 +59,10 @@ public class CalculadoraRepresentante implements Serializable {
 	private void calcularPontosClienteNovos(Representante representante){
 		pegaClientesNovos(representante);
 		pontosClientesNovo = TabelaDePontos.pontosClientesNovo(this.clientesNovo.size());
+	}
+	
+	public int getTotalDePontosAcumulados(){
+		return this.pontosHabilitador + this.pontosClientesNovo; 
 	}
 	
 	private void buscaMeta(Representante representante) throws MetaNaoEncontradaException {
