@@ -12,10 +12,10 @@ public class Meta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer id;
-	public Integer codigo;
-	public String mes;
-	public BigDecimal faturamento;
+	private Integer id;
+	private Integer codigo;
+	private String mes;
+	private BigDecimal faturamento = BigDecimal.ZERO;
 
 	public Integer getCodigo() {
 		return codigo;
