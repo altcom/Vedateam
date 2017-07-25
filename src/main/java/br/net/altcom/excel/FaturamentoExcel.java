@@ -145,8 +145,8 @@ public class FaturamentoExcel extends ExcelProcessor implements Serializable {
 				produtoDaLista.setProduto(row.getCell(3).getStringCellValue());
 				produtoDaLista.setFamilia(row.getCell(4).getStringCellValue());
 				produtoDaLista.setItem(row.getCell(6).getStringCellValue());
-				produtoDAO.adiciona(produto);
-				produtoDaLista = produtoDAO.buscaPeloCodigo(produto);
+				produtoDAO.adiciona(produtoDaLista);
+				produtoDaLista = produtoDAO.buscaPeloCodigo(produtoDaLista);
 			}
 			
 			produtos.add(produtoDaLista);
