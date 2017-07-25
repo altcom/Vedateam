@@ -131,12 +131,40 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						Progresso Do Mix
+						<a id="btnMix">
+							<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+						</a>
+					</h3>
+				</div>
+				<div class="panel-body mix">
+					<p:dataList styleClass="participacaoMix" value="#{representanteBean.calculadora.participacoes}" var="par" paginator="true" rows="5">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h:outputText value="#{par.familia}"/>
+							</div>
+							<div class="panel-body">
+								<div class="progress">
+									<div class="progress-bar" role="progressbar"
+										aria-valuenow="#{par.porcentagemProgresso}" aria-valuemin="0"
+										aria-valuemax="100" style="width: #{par.porcentagemProgresso}%">
+										#{par.porcentagemProgresso}%</div>
+								</div>
+								<p>Valor minimo necessário para pontuar: <h:outputText value="#{par.metaMix}"/></p>
+								<p>Valor já atigindo: <h:outputText value="#{par.progresso}"/></p>
+							</div>
+						</div>
+					</p:dataList>
+				</div>
+			</div>
 			<div class="painel">
 				<div class="painel-heading">
 					<h4>Informações sobre Cliente</h4>
 				</div>
-				
+					
 				<a class="btn btn-default btn-clientes" id="btn-clientesNovos">
 					<p>Clientes Novos</p>
 					<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>

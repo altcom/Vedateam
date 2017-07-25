@@ -35,6 +35,19 @@
 	padding-left: 20px;
 }
 
+#btnMix{
+	float: right;
+}
+
+.mix{
+	display: none;
+}
+
+.mix ul{
+	list-style-type: none;
+	padding: 0;
+}
+
 .btn-clientes{
 	width: 100%;
 }

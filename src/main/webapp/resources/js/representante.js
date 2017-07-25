@@ -15,10 +15,28 @@ $(document).ready(function(){
 	var btnClienteNovos = $("#btn-clientesNovos");
 	var btnClientesAtivos = $("#btn-clientesAtivos");
 	var btnClientesNaBase = $("#btn-clientesNaBase");
+	var btnMix = $("#btnMix");
 	
 	var btnCN = false;
 	var btnCA = false;
 	var btnCB = false;
+	var btnM = false;
+	
+	btnMix.click(function() {
+		var icone = $("#btnMix .glyphicon"); 
+		if(!btnM){
+			icone.removeClass("glyphicon-triangle-bottom");
+			icone.addClass("glyphicon-triangle-top");
+			
+			$(".mix").css("display", "block");
+		}else{
+			icone.removeClass("glyphicon-triangle-top");
+			icone.addClass("glyphicon-triangle-bottom");
+			
+			$(".mix").css("display", "none");
+		}
+		btnM = !btnM;
+	});
 	
 	btnClienteNovos.click(function() {
 		var icone = $("#btn-clientesNovos .glyphicon"); 
