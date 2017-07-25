@@ -17,11 +17,11 @@ import br.net.altcom.modelo.entity.Representante;
 public class ParticipacaoMixExcel extends ExcelProcessor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private RepresentanteDAO representanteDAO;
 	@Inject
-	private ParticipacaoMixDAO participacaoDAO; 
+	private ParticipacaoMixDAO participacaoDAO;
 	private Row header = null;
 
 	@Override
@@ -34,7 +34,7 @@ public class ParticipacaoMixExcel extends ExcelProcessor implements Serializable
 		}
 	}
 
-	private void getParticipacaoMix(Row row){
+	private void getParticipacaoMix(Row row) {
 		Representante representante = null;
 		String codigo = "";
 		for (Cell cell : header) {
@@ -43,28 +43,25 @@ public class ParticipacaoMixExcel extends ExcelProcessor implements Serializable
 				representante = getRepresentante(codigo);
 				continue;
 			}
-			
-			if(representante == null){
+
+			if (representante == null) {
 				System.out.println("Não foi encontrado representante: " + codigo);
 				return;
 			}
 			ParticipacaoMix participacaoMix = new ParticipacaoMix();
-			
+
 			String porcentagem = row.getCell(cell.getColumnIndex()).getStringCellValue();
 			porcentagem = porcentagem.replaceAll(",", "").replace("%", "");
 			participacaoMix.setPorcentagem(new BigDecimal(porcentagem));
-			
-			if(participacaoMix.getPorcentagem().compareTo(new BigDecimal("0")) == 0)
-				continue;
-			
+
 			participacaoMix.setRepresentante(representante);
 			participacaoMix.setFamilia(cell.getStringCellValue());
 			participacaoMix.setMes("4-2017");
-			
+
 			participacaoDAO.adiciona(participacaoMix);
-		}	
+		}
 	}
-	
+
 	private Representante getRepresentante(String codigo) {
 		Representante representante = new Representante();
 		representante.setCodigo(new Integer(codigo));
