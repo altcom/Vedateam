@@ -3,13 +3,16 @@ package br.net.altcom.dao;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
+import br.net.altcom.modelo.dao.Mix;
 import br.net.altcom.modelo.entity.Cliente;
 import br.net.altcom.modelo.entity.Faturamento;
 import br.net.altcom.modelo.entity.Regional;
@@ -56,10 +59,10 @@ public class FaturamentoDAO extends CRUD<Faturamento> {
 		query.setParameter("representante", representante);
 		query.setParameter("dataInicial", dataInicial);
 		query.setParameter("dataFinal", dataFinal);
-		
+
 		Set<Cliente> clientesNaBase = new HashSet<>();
 		query.getResultList().forEach(c -> clientesNaBase.add(c));
-		
+
 		return clientesNaBase;
 	}
 
@@ -77,5 +80,20 @@ public class FaturamentoDAO extends CRUD<Faturamento> {
 
 	public void salvarTodosFaturamento(List<Faturamento> faturamentos) {
 		faturamentos.forEach(f -> manager.persist(f));
+	}
+
+	public Map<String, Mix> somaDoMesDeCadaFamiliaDeUmRepresentante(Representante representante, YearMonth mes) {
+		String jpql = "SELECT new br.net.altcom.modelo.dao.Mix(f.produto.familia, SUM(f.faturamento)) FROM Faturamento f "
+				+ "WHERE f.representante = :representante AND MONTH(f.data) = :mes AND YEAR(f.data) = :ano "
+				+ "GROUP BY f.produto.familia";
+		TypedQuery<Mix> query = manager.createQuery(jpql, Mix.class);
+		query.setParameter("representante", representante);
+		query.setParameter("mes", mes.getMonthValue());
+		query.setParameter("ano", mes.getYear());
+
+		Map<String, Mix> mixs = new HashMap<>();
+		query.getResultList().forEach(m -> mixs.put(m.getFamilia().toLowerCase(), m));
+
+		return mixs;
 	}
 }
