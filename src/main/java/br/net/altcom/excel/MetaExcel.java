@@ -17,6 +17,7 @@ public class MetaExcel extends ExcelProcessor implements Serializable {
 
 	@Inject
 	private MetaDAO metaDAO;
+	private String data;
 	
 	@Override
 	protected void executa(ExcelSheet excelSheet) {
@@ -38,9 +39,13 @@ public class MetaExcel extends ExcelProcessor implements Serializable {
 			BigDecimal faturamento = new BigDecimal(faturamentoTexto);
 			meta.setFaturamento(faturamento);
 
-			meta.setMes(i + "-" +"2017");
+			meta.setMes(this.data);
 
 			metaDAO.adiciona(meta);
 		}
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 }

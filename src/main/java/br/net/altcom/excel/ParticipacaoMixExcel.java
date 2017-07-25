@@ -23,7 +23,8 @@ public class ParticipacaoMixExcel extends ExcelProcessor implements Serializable
 	@Inject
 	private ParticipacaoMixDAO participacaoDAO;
 	private Row header = null;
-
+	private String data;
+	
 	@Override
 	protected void executa(ExcelSheet excelSheet) {
 		header = excelSheet.getHeader();
@@ -56,7 +57,7 @@ public class ParticipacaoMixExcel extends ExcelProcessor implements Serializable
 
 			participacaoMix.setRepresentante(representante);
 			participacaoMix.setFamilia(cell.getStringCellValue());
-			participacaoMix.setMes("4-2017");
+			participacaoMix.setMes(this.data);
 
 			participacaoDAO.adiciona(participacaoMix);
 		}
@@ -66,5 +67,9 @@ public class ParticipacaoMixExcel extends ExcelProcessor implements Serializable
 		Representante representante = new Representante();
 		representante.setCodigo(new Integer(codigo));
 		return representanteDAO.buscaPeloCodigo(representante);
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 }
