@@ -1,6 +1,8 @@
 package br.net.altcom.bean;
 
 import java.io.Serializable;
+import java.time.Month;
+import java.time.YearMonth;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -26,10 +28,10 @@ public class RegionalBean implements Serializable {
 	private CalculadoraRegional calculadora;
 
 	@PostConstruct
-	public void setup(){
-		calculadora.calcula(getRegional());
+	public void setup() {
+		calculadora.calcula(getRegional(), YearMonth.of(2017, Month.APRIL));
 	}
-	
+
 	public Regional getRegional() {
 		if (this.regional == null) {
 			this.regional = regionalDAO.buscaPeloCodigo(logadoBean.getUsuario().getCodigo());
