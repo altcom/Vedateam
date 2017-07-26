@@ -7,65 +7,93 @@
 	xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/template/websiteTemplate.xhtml">
 	<ui:define name="script">
-		<title>#{regionalBean.getRegional().getNome()}</title>
+		<title></title>
+		<h:outputScript library="primefaces" name="jquery/jquery.js"/>
 		<h:outputScript library="js" name="progressBar.js"/>
 		<h:outputScript library="js" name="regional.js"/>
 		<h:outputStylesheet library="css" name="progressBar.css"/>
 	</ui:define>
 	<ui:define name="nomeUsuario">
-		#{regionalBean.getRegional().getNome()}
+		
 	</ui:define>
 	<ui:define name="main">
-		<div class="container">
-			<div class="painel">
-				<div class="painel-heading">
-					<h3>Total de pontos no 1º Set <small>(Janeiro/Fevereiro/Abril)</small></h3>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h3>Pontuação do mês atual</h3>
+				<div class="row">
+					<div class="col-sm-6 col-lg-3">
+						<div class="painel">
+							<div class="painel-heading">Faturamento</div>
+							<div class="painel-body">
+								<span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"/>
+								0
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3">
+						<div class="painel">
+							<div class="painel-heading">Capilaridade</div>
+							<div class="painel-body">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"/>
+								0
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3">
+						<div class="painel">
+							<div class="painel-heading">Rentabilidade</div>
+							<div class="painel-body">
+								<span class="glyphicon glyphicon-list-alt" aria-hidden="true"/>
+								0
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3">
+						<div class="painel">
+							<div class="painel-heading">Total De Pontos</div>
+							<div class="painel-body">
+								<span class="glyphicon glyphicon-flag" aria-hidden="true"/>
+								0
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="painel-body" >
-					<div class="row">
-						<div class="col-sm-6 col-lg-3">
-							<div class="painel">
-								<div class="painel-heading">Faturamento</div>
-								<div class="painel-body"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>0</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-3">
-							<div class="painel">
-								<div class="painel-heading">Capilaridade</div>
-								<div class="painel-body"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span>0</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-3">
-							<div class="painel">
-								<div class="painel-heading">Rentabilidade</div>
-								<div class="painel-body"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>0</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-3">
-			        		<div class="painel">
-								<div class="painel-heading">Pontos Acumulados</div>
-								<div class="painel-body"><span class="glyphicon glyphicon-flag" aria-hidden="true"></span>0</div>
-							</div>
-			        	</div>
-					</div><!-- end row div -->
+				<!-- end row div -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Rentabilidade</h3>
+					</div>
+					<div class="panel-body">
+						
+					</div>
 				</div>
-			</div><!-- end painel div -->
-			<div class="painel">
-        		<div class="painel-heading">
-        			<h3>Faturamento</h3>
-        		</div>
-	        	<div class="row panel-body">
-	        		<div class="grafico col-xs-12 col-sm-6">
-		        		<div class="progresso" id="faturamento"/>
-		        		<h:inputHidden id="faturamentoBar" value="#{regionalBean.calculadora.porcentagemDoHabilitador}"/>
-		       		</div>
-		       		<div class="col-xs-12 col-sm-6">
-						<h4>Progresso Do Faturamento</h4>
-						<p>Meta: <small>#{regionalBean.getCalculadora().getMeta()}</small></p>
-						<p>Atual: <small>#{regionalBean.getCalculadora().getProgressoMeta()}</small></p>
-	        		</div>    
-	        	</div>
-	        </div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="panel panel-primary progressoFaturamento">
+					<div class="panel-heading">
+						<h3 class="panel-title">Progresso Do Faturamento</h3>
+					</div>
+					<div class="panel-body row">
+						<div class="grafico col-xs-12 col-sm-7 col-md-5">
+							<div class="progresso" id="faturamento" />
+							<h:inputHidden id="faturamentoBar"
+								value="#{regionalBean.calculadora.porcentagemDoHabilitador}" />
+						</div>
+						<div class="col-xs-12 col-sm-5 col-md-7">
+							<div class="informacoes">
+								<h4>Meta</h4>
+								<p>R$#{regionalBean.getCalculadora().getMeta()}</p>
+								<h4>Progresso</h4>
+								<p>R$#{regionalBean.getCalculadora().getProgressoMeta()}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>
