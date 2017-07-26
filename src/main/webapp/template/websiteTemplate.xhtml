@@ -8,102 +8,110 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js"/>
+	<h:outputScript library="js" name="bootstrap.min.js"/>
 	<h:outputStylesheet library="css" name="bootstrap.css"/>
 	<h:outputStylesheet library="css" name="websiteTemplate.css"/>
-	<h:outputScript library="js" name="bootstrap.min.js"/>
 	<ui:insert name="script" />
 </h:head>
 <h:body>
-	<header> <nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container container-fluid">
-		<div class="navbar-header">
-			<h:form rendered="#{usuarioLogadoBean.logado}">
-				<button type="button" class="navbar-toggle toggle collapsed"
-					data-toggle="collapse" data-target="#navbar-collapse-1"
-					aria-expanded="false">
-					<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-				</button>
-			</h:form>
-			<a class="navbar-brand" href="#"> <h:graphicImage library="img"
-					name="vedacit_logo.png" alt="Brand"
-					styleClass="img-responsive logo-header" />
-			</a>
-			<h:graphicImage rendered="#{usuarioLogadoBean.logado}" library="img"
-				name="default-user.png"
-				styleClass="img-responsive img-circle img-user" />
-		</div>
-		<div class="collapse navbar-collapse itens" id="navbar-collapse-1">
-			<ul class="navbar-left">
-				<li><h3>
-						<ui:insert name="nomeUsuario" />
-					</h3></li>
-			</ul>
-			<ul class="navbar-right">
-				<li><h:form rendered="#{usuarioLogadoBean.logado}">
-						<h:commandLink styleClass="navbar-link"
-							action="#{usuarioLogadoBean.deslogar}">
-							<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</h:commandLink>
-					</h:form></li>
-			</ul>
-		</div>
-		<!-- /.navbar-collapse -->
-	</div>
-	</nav> </header>
-	<main> <ui:insert name="main" /> </main>
+	<header> 
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container container-fluid">
+				<div class="navbar-header">
+				
+					<h:form rendered="#{usuarioLogadoBean.logado}">
+						<button type="button" class="navbar-toggle toggle collapsed"
+							data-toggle="collapse" data-target="#navbar-collapse-1"
+							aria-expanded="false">
+							<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+						</button>
+					</h:form>
+					
+					<!-- Logo -->
+					<a class="navbar-brand logo" href="#"> 
+						<h:graphicImage library="img" name="vedateam_logo.png" alt="Brand" 
+						styleClass="img-responsive logo-header" />
+					</a>
+				</div>
+				<!-- Collapse -->
+				<div class="collapse navbar-collapse itens" id="navbar-collapse-1">
+					<ul class="navbar-left">
+						<li><h3><ui:insert name="nomeUsuario" /></h3></li>
+					</ul>
+					<ul class="navbar-right">
+						<li>
+							<h:form rendered="#{usuarioLogadoBean.logado}">
+								<h:commandLink styleClass="navbar-link" action="#{usuarioLogadoBean.deslogar}">
+									<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout
+								</h:commandLink>
+							</h:form>
+						</li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+		</nav> 
+	</header>
+	<main> 
+		<div class="container">
+			<ui:insert name="main" />
+		</div> 
+	</main>
 	<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12 col-md-3">
-				<h:graphicImage library="img" name="vedacit_logo.png"
-					styleClass="img-responsive logo-footer" />
-			</div>
-			<div class="row col-md-9">
-				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-2">
-					<h4>CAMPANHA</h4>
-					<ul>
-						<li>Informações</li>
-						<li>Objetivos</li>
-						<li>Produtos</li>
-						<li>Noticias</li>
-						<li>Eventos</li>
-					</ul>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-2">
+					<h:graphicImage library="img" name="vedacit_logo.png"
+						styleClass="img-responsive logo-footer" />
 				</div>
-				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-2">
-					<h4>PREMIAÇÃO</h4>
-					<ul>
-						<li>Cruzeiro Maritimo</li>
-						<li>Parceria</li>
-						<li>Ranting</li>
-					</ul>
-				</div>
-
-				<div class="col-xs-6 col-sm-6 col-md-4 col-lg-2">
-					<h4>PARTICIPE</h4>
-					<ul>
-						<li>Dê a sua opinião</li>
-						<li>Avalie a Campanha</li>
-						<li>Adicione fotos dos pontos de venda</li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-sm-6  col-md-4 col-lg-3">
-					<h4>PROMOCIONAL</h4>
-					<ul>
-						<li>Videos</li>
-						<li>Material Gráfico</li>
-						<li>Solicite o seu</li>
-					</ul>
-				</div>
-				<div class="col-xs-6 col-sm-6  col-md-4 col-lg-3">
-					<h4>FALE CONOSCO</h4>
-					<ul>
-						<li>Videos</li>
-						<li>Material Gráfico</li>
-						<li>Solicite o seu</li>
-					</ul>
+				<div class="row col-md-9">
+					<div class="col-md-4 col-lg-2">
+						<h4>CAMPANHA</h4>
+						<ul>
+							<li>Informações</li>
+							<li>Objetivos</li>
+							<li>Produtos</li>
+							<li>Noticias</li>
+							<li>Eventos</li>
+						</ul>
+					</div>
+					<div class="col-md-4 col-lg-2">
+						<h4>PREMIAÇÃO</h4>
+						<ul>
+							<li>Cruzeiro Maritimo</li>
+							<li>Parceria</li>
+							<li>Ranting</li>
+						</ul>
+					</div>
+	
+					<div class="col-md-4 col-lg-2">
+						<h4>PARTICIPE</h4>
+						<ul>
+							<li>Dê a sua opinião</li>
+							<li>Avalie a Campanha</li>
+							<li>Adicione fotos dos pontos de venda</li>
+						</ul>
+					</div>
+					<div class="col-md-4 col-lg-3">
+						<h4>PROMOCIONAL</h4>
+						<ul>
+							<li>Videos</li>
+							<li>Material Gráfico</li>
+							<li>Solicite o seu</li>
+						</ul>
+					</div>
+					<div class="col-md-4 col-lg-3">
+						<h4>FALE CONOSCO</h4>
+						<ul>
+							<li>Videos</li>
+							<li>Material Gráfico</li>
+							<li>Solicite o seu</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</footer>
 </h:body>
 </html>

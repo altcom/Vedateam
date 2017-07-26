@@ -6,6 +6,11 @@ body{
 	padding-top: 100px;
 	background-color: #ecf0f1;
 }
+
+.logo{
+	padding: 0;
+}
+
 .logo-header{
 	height: 100%;
 }
@@ -130,6 +135,10 @@ footer ul{
 	color: white;
 }
 
+footer .col-md-4{
+	display: none;
+}
+
 @media (max-width: 500px){
 	.navbar-brand{
 		margin-top: 10px;
@@ -137,6 +146,11 @@ footer ul{
 	}
 }
 
+@media (min-width: 500px){
+	footer .col-md-4{
+		display: inline-block;
+	}
+}
 @media (min-width: 768px){
 
 	.itens{

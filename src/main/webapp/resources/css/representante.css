@@ -67,6 +67,20 @@
 	display: none;
 }
 
+.clienteList{
+	border: 1px solid #ddd;	
+	margin-bottom: 20px;
+}
+
+.clienteList p{
+	margin: 0;
+}
+
+ol{
+	padding: 20px 20px 0px;
+	margin: 0;
+}
+
 @media (min-width: 768px){
 	.progressoFaturamento{
 		height: 280px;
