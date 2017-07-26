@@ -45,7 +45,7 @@ public class CalculadoraRepresentante implements Serializable {
 
 	public void calcula(Representante representante, YearMonth mes) {
 		try {
-			buscaMeta(representante, mes);
+			buscaMeta(representante.getCodigo(), mes);
 			buscaProgressoMeta(representante, mes);
 			buscaParticipacaoMix(representante, mes);
 
@@ -71,8 +71,8 @@ public class CalculadoraRepresentante implements Serializable {
 		return this.pontosHabilitador + this.pontosClientesNovo;
 	}
 
-	private void buscaMeta(Representante representante, YearMonth mes) throws MetaNaoEncontradaException {
-		this.meta = metaDAO.buscaMetaDoRepresentante(representante, mes);
+	private void buscaMeta(Integer codigo, YearMonth mes) throws MetaNaoEncontradaException {
+		this.meta = metaDAO.buscaMetaDoMes(codigo, mes);
 	}
 
 	private void buscaProgressoMeta(Representante representante, YearMonth mes) {
