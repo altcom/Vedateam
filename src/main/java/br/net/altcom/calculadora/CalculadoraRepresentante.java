@@ -3,7 +3,6 @@ package br.net.altcom.calculadora;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.HashSet;
 import java.util.List;
@@ -44,16 +43,14 @@ public class CalculadoraRepresentante implements Serializable {
 	@Inject
 	private ParticipacaoMixDAO participacaoDAO;
 
-	private YearMonth data = YearMonth.of(2017, Month.APRIL);
-
-	public void calcula(Representante representante) {
+	public void calcula(Representante representante, YearMonth mes) {
 		try {
-			buscaMeta(representante);
-			buscaProgressoMeta(representante);
-			buscaParticipacaoMix(representante, data);
+			buscaMeta(representante, mes);
+			buscaProgressoMeta(representante, mes);
+			buscaParticipacaoMix(representante, mes);
 
 			calcularPontosDoHabilitador();
-			calcularPontosClienteNovos(representante);
+			calcularPontosClienteNovos(representante, mes);
 		} catch (MetaNaoEncontradaException e) {
 			System.out.println("Meta não encontrada");
 		}
@@ -65,8 +62,8 @@ public class CalculadoraRepresentante implements Serializable {
 		pontosHabilitador = TabelaDePontos.pontosHabilitadorRepresentante(porcentagem.doubleValue());
 	}
 
-	private void calcularPontosClienteNovos(Representante representante) {
-		pegaClientesNovos(representante);
+	private void calcularPontosClienteNovos(Representante representante, YearMonth mes) {
+		pegaClientesNovos(representante, mes);
 		pontosClientesNovo = TabelaDePontos.pontosClientesNovo(this.clientesNovo.size());
 	}
 
@@ -74,20 +71,20 @@ public class CalculadoraRepresentante implements Serializable {
 		return this.pontosHabilitador + this.pontosClientesNovo;
 	}
 
-	private void buscaMeta(Representante representante) throws MetaNaoEncontradaException {
-		this.meta = metaDAO.buscaMetaDoRepresentante(representante, "4-2017");
+	private void buscaMeta(Representante representante, YearMonth mes) throws MetaNaoEncontradaException {
+		this.meta = metaDAO.buscaMetaDoRepresentante(representante, mes);
 	}
 
-	private void buscaProgressoMeta(Representante representante) {
-		progressoMeta = faturamentoDAO.somaDoMesDeUmRepresentante(representante, data);
+	private void buscaProgressoMeta(Representante representante, YearMonth mes) {
+		progressoMeta = faturamentoDAO.somaDoMesDeUmRepresentante(representante, mes);
 	}
 
-	private void buscaClientesAtivos(Representante representante) {
-		clientesAtivos = faturamentoDAO.buscarClientesAtivosDoMesDeUmRepresentante(representante, data);
+	private void buscaClientesAtivos(Representante representante, YearMonth mes) {
+		clientesAtivos = faturamentoDAO.buscarClientesAtivosDoMesDeUmRepresentante(representante, mes);
 	}
 
-	private void buscaClientesNaBase(Representante representante) {
-		clientesNaBase = faturamentoDAO.buscaClientesEntreMes(representante, data.minusMonths(6), data.minusMonths(1));
+	private void buscaClientesNaBase(Representante representante, YearMonth mes) {
+		clientesNaBase = faturamentoDAO.buscaClientesEntreMes(representante, mes.minusMonths(6), mes.minusMonths(1));
 	}
 
 	private Map<String, Mix> buscaTotalDeCadaFamilia(Representante representante, YearMonth mes) {
@@ -100,7 +97,7 @@ public class CalculadoraRepresentante implements Serializable {
 
 		for (ParticipacaoMix participacao : participacoes) {
 			Mix mix = familias.get(participacao.getFamilia().toLowerCase());
-			
+
 			if (mix == null) {
 				participacao.setProgresso(new BigDecimal("0"));
 			} else {
@@ -112,9 +109,9 @@ public class CalculadoraRepresentante implements Serializable {
 		}
 	}
 
-	private void pegaClientesNovos(Representante representante) {
-		buscaClientesAtivos(representante);
-		buscaClientesNaBase(representante);
+	private void pegaClientesNovos(Representante representante, YearMonth mes) {
+		buscaClientesAtivos(representante, mes);
+		buscaClientesNaBase(representante, mes);
 		this.clientesNovo = new HashSet<>(this.clientesAtivos);
 		clientesNovo.removeAll(this.clientesNaBase);
 	}
@@ -155,7 +152,7 @@ public class CalculadoraRepresentante implements Serializable {
 	public Set<Cliente> getClientesNovo() {
 		return clientesNovo;
 	}
-	
+
 	public List<ParticipacaoMix> getParticipacoes() {
 		return participacoes;
 	}

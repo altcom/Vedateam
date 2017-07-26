@@ -1,6 +1,8 @@
 package br.net.altcom.bean;
 
 import java.io.Serializable;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class RepresentanteBean implements Serializable {
 
 	@PostConstruct
 	public void setup() {
-		calculadora.calcula(getRepresentante());
+		calculadora.calcula(getRepresentante(), YearMonth.of(2017, Month.APRIL));
 	}
 
 	public Representante getRepresentante() {
