@@ -25,7 +25,8 @@ public class AdminBean implements Serializable {
 	private UploadedFile file;
 	private byte[] contents;
 	private List<String> sheetsName;
-
+	private String data;
+	
 	@Inject
 	private RepresentanteExcel representanteExcel;
 	@Inject
@@ -69,6 +70,7 @@ public class AdminBean implements Serializable {
 		this.faturamentoExcel.setSheetName(sheetName);
 		this.faturamentoExcel.setByte(this.contents);
 		new Thread(this.faturamentoExcel).start();
+		this.sheetsName.remove(sheetName);
 	}
 
 	public void processarMetaExcel(String sheetName) {
@@ -82,7 +84,9 @@ public class AdminBean implements Serializable {
 		System.out.println("Processar Participacao Excel");
 		this.participacaoMixExcel.setSheetName(sheetName);
 		this.participacaoMixExcel.setByte(this.contents);
+		this.participacaoMixExcel.setData(this.data);
 		new Thread(this.participacaoMixExcel).start();
+		this.sheetsName.remove(sheetName);
 	}
 
 	public UploadedFile getFile() {
@@ -95,5 +99,13 @@ public class AdminBean implements Serializable {
 
 	public List<String> getSheetsName() {
 		return sheetsName;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 }
