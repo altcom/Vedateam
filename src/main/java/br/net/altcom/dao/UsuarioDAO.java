@@ -1,18 +1,13 @@
 package br.net.altcom.dao;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.net.altcom.modelo.entity.Usuario;
 
 @Stateless
-public class UsuarioDAO {
-
-	@Inject
-	private EntityManager manager;
+public class UsuarioDAO extends CRUD<Usuario> {
 
 	public Usuario buscaPeloEmail(Usuario usuario) {
 		String jpql = "SELECT u FROM Usuario u WHERE u.email = :email";

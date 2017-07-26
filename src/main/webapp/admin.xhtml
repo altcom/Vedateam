@@ -76,6 +76,23 @@
 				</div>
 			</h:form>
 		</section>
+		<section>
+			<div>
+				<h:form>
+					<h:outputLabel value="Email:" for="email"/>
+					<h:inputText id="email" value="#{adminBean.usuario.email}"/>
+					<h:outputLabel value="Senha:" for="senha"/>
+					<h:inputText id="senha" value="#{adminBean.usuario.senha}"/>
+					<h:outputLabel value="Codigo do Usuario:" for="codigo"/>
+					<h:inputText id="codigo" value="#{adminBean.usuario.codigo}"/>
+					<h:outputLabel value="Tipo de Acesso:" for="tipoAcesso"/>
+					<h:inputText id="tipoAcesso" value="#{adminBean.usuario.tipoDeAcesso}"/>
+					
+					<h:commandButton actionListener="#{adminBean.gravaUsuario}" value="Salvar"/>
+				
+				</h:form>	
+			</div>
+		</section>
 	</ui:define>
 </ui:composition>
 </html>

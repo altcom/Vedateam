@@ -10,12 +10,14 @@ import javax.inject.Named;
 
 import org.primefaces.model.UploadedFile;
 
+import br.net.altcom.dao.UsuarioDAO;
 import br.net.altcom.excel.Excel;
 import br.net.altcom.excel.FaturamentoExcel;
 import br.net.altcom.excel.MetaExcel;
 import br.net.altcom.excel.ParticipacaoMixExcel;
 import br.net.altcom.excel.RegionalExcel;
 import br.net.altcom.excel.RepresentanteExcel;
+import br.net.altcom.modelo.entity.Usuario;
 
 @Named
 @ViewScoped
@@ -37,7 +39,12 @@ public class AdminBean implements Serializable {
 	private FaturamentoExcel faturamentoExcel;
 	@Inject
 	private ParticipacaoMixExcel participacaoMixExcel;
-
+	@Inject
+	private UsuarioDAO usuarioDao;
+	
+	private Usuario usuario = new Usuario();
+	
+	
 	public void uploadExcel() {
 		if (file == null)
 			return;
@@ -107,5 +114,19 @@ public class AdminBean implements Serializable {
 
 	public void setData(String data) {
 		this.data = data;
+	}
+	
+	public void gravaUsuario(){
+		
+		usuarioDao.adiciona(usuario);
+		usuario = new Usuario();
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
