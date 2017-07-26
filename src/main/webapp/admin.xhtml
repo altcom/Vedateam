@@ -19,19 +19,58 @@
 				</h:form>
 			  </div>
 			</div>
-			<h:form>
+			<h:form styleClass="form-inline" rendered="#{not empty adminBean.sheetsName}">
 				<div class="panel panel-default">
+					<div class="panel-heading">
+					    <h3 class="panel-title">Meta ou Participação</h3>
+					</div>
+					<div class="panel-body">	
+						<div class="form-group">
+							<p:outputLabel for="data" value="Data: " /> 
+							<p:inputMask id="data" styleClass="form-control" value="#{adminBean.data}" mask="99/9999"/>
+						</div>
+						<p:dataList value="#{adminBean.sheetsName}" var="sheet">
+							<h:outputText value="#{sheet}"/>
+							<p:commandButton value="Meta" class="btn btn-default" 
+							actionListener="#{adminBean.processarMetaExcel(sheet)}"/>
+							<p:commandButton value="Participacao" class="btn btn-default" 
+							actionListener="#{adminBean.processarParticipacaoExcel(sheet)}" update="@form"/>
+						</p:dataList>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+					    <h3 class="panel-title">Faturamento</h3>
+					</div>
 					<div class="panel-body">
 						<p:dataList value="#{adminBean.sheetsName}" var="sheet">
-							<f:facet name="header">
-					            Tabelas
-					        </f:facet>
-							#{sheet} 
-							<p:commandButton value="Representante" actionListener="#{adminBean.processarRepresentanteExcel(sheet)}"/>
-							<p:commandButton value="Regional" actionListener="#{adminBean.processarRegionalExcel(sheet)}"/>
-							<p:commandButton value="Faturamento" actionListener="#{adminBean.processarFaturamentoExcel(sheet)}"/>
-							<p:commandButton value="Meta" actionListener="#{adminBean.processarMetaExcel(sheet)}"/>
-							<p:commandButton value="Participacao" actionListener="#{adminBean.processarParticipacaoExcel(sheet)}"/>
+							<h:outputText value="#{sheet}"/>
+							<p:commandButton value="Selecionar" class="btn btn-default" 
+							actionListener="#{adminBean.processarFaturamentoExcel(sheet)}"/>
+						</p:dataList>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+					    <h3 class="panel-title">Representante</h3>
+					</div>
+					<div class="panel-body">
+						<p:dataList value="#{adminBean.sheetsName}" var="sheet">
+							<h:outputText value="#{sheet}"/>
+							<p:commandButton value="Selecionar" class="btn btn-default" 
+							actionListener="#{adminBean.processarRepresentanteExcel(sheet)}"/>
+						</p:dataList>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+					    <h3 class="panel-title">Regional</h3>
+					</div>
+					<div class="panel-body">
+						<p:dataList value="#{adminBean.sheetsName}" var="sheet">
+							<h:outputText value="#{sheet}"/>
+							<p:commandButton value="Selecionar" class="btn btn-default" 
+							actionListener="#{adminBean.processarRegionalExcel(sheet)}"/>
 						</p:dataList>
 					</div>
 				</div>
